@@ -5,7 +5,7 @@ ActiveAdmin.register User do
   #
   # Uncomment all parameters which should be permitted for assignment
   #
-  permit_params :email, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :college_id
+  permit_params :email, :password, :password_confirmation, :encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :college_id, :role_id
   #
   # or
   #
@@ -15,12 +15,24 @@ ActiveAdmin.register User do
   #   permitted
   # end
 
+  index do
+    selectable_column
+    id_column
+    column :email
+    column :college
+    column :role
+    column :created_at
+    column :updated_at
+    actions
+  end
+
   form do |f|
     f.inputs do
       f.input :email
-      f.input :college
       f.input :password
       f.input :password_confirmation
+      f.input :college
+      f.input :role
     end
     f.actions
   end

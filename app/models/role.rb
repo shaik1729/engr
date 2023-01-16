@@ -1,4 +1,6 @@
 class Role < ApplicationRecord
+    has_many :users
+    
     before_save :upcase_fields
 
     validates :name, presence: true, uniqueness: true
