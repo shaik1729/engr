@@ -1,10 +1,11 @@
 class BatchesController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_admin
   before_action :set_batch, only: %i[ show edit update destroy ]
 
   # GET /batches or /batches.json
   def index
-    @batches = Batch.all
+    @batches = current_user.batches.all
   end
 
   # GET /batches/1 or /batches/1.json
@@ -67,5 +68,10 @@ class BatchesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def batch_params
       params.require(:batch).permit(:year, :user_id)
+    end
+
+    def authorize_admin
+      return unless !current_user.is_admin?
+      redirect_to root_path, alert: 'Admins only!'
     end
 end

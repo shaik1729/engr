@@ -1,10 +1,11 @@
 class DepartmentsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_admin
   before_action :set_department, only: %i[ show edit update destroy ]
 
   # GET /departments or /departments.json
   def index
-    @departments = Department.all
+    @departments = current_user.departments.all
   end
 
   # GET /departments/1 or /departments/1.json
@@ -67,5 +68,10 @@ class DepartmentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def department_params
       params.require(:department).permit(:name, :short_form, :code, :user_id)
+    end
+
+    def authorize_admin
+      return unless !current_user.is_admin?
+      redirect_to root_path, alert: 'Admins only!'
     end
 end

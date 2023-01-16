@@ -1,10 +1,11 @@
 class RegulationsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_admin
   before_action :set_regulation, only: %i[ show edit update destroy ]
 
   # GET /regulations or /regulations.json
   def index
-    @regulations = Regulation.all
+    @regulations = current_user.regulations.all
   end
 
   # GET /regulations/1 or /regulations/1.json
@@ -67,5 +68,10 @@ class RegulationsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def regulation_params
       params.require(:regulation).permit(:name, :code, :user_id)
+    end
+
+    def authorize_admin
+      return unless !current_user.is_admin?
+      redirect_to root_path, alert: 'Admins only!'
     end
 end
