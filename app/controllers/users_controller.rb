@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
     before_action :authenticate_user!
-    before_action :authorize_admin
     before_action :set_user, only: %i[ show edit update destroy ]
+    before_action :authorize_admin
 
   
     def index
@@ -64,8 +64,11 @@ class UsersController < ApplicationController
     end
   
     def authorize_admin
-      return unless !current_user.is_admin?
-      redirect_to root_path, alert: 'Admins only!'
+        if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
+          return raise Unauthorized unless @user.college_id == current_user.college_id
+        elsif ['new', 'create', 'index'].include?(params[:action])
+          return raise Unauthorized unless current_user.is_admin?
+        end
     end
   end
   

@@ -2,18 +2,8 @@
 
 <p>
   <strong>Name:</strong>
-  <%= @regulation.name %>
+  <%= @user.name %>
 </p>
 
-<p>
-  <strong>Code:</strong>
-  <%= @regulation.code %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @regulation.user_id %>
-</p>
-
-<%= link_to 'Edit', edit_regulation_path(@regulation) %> |
-<%= link_to 'Back', regulations_path %>
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
