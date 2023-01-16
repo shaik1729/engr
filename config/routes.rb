@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :notifications
   resources :documents
   get 'home/index'
   resources :departments

@@ -3,9 +3,12 @@
     <%= link_to 'Departments', departments_path %>
     <%= link_to 'Regulations', regulations_path %>
     <%= link_to 'Create User', new_user_path %>
-
+    <%= link_to 'Documents', documents_path %>
+    <%= link_to 'Notifications', notifications_path %>
+    
 <% elsif user_signed_in? %> 
     <%= link_to 'Documents', documents_path %>
+    <%= link_to 'Notifications', notifications_path %>
 <% end %>
 
 
