@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :departments
   resources :regulations
   resources :batches
   devise_for :users
