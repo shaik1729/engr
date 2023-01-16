@@ -1,7 +1,8 @@
-<% if current_user.is_admin? %>
+<% if user_signed_in? && current_user.is_admin? %>
     <%= link_to 'Batches', batches_path %>
     <%= link_to 'Departments', departments_path %>
     <%= link_to 'Regulations', regulations_path %>
+    <%= link_to 'Create User', new_user_path %>
 <% end %>
 
 
