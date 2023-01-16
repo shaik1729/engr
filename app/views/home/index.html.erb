@@ -1,18 +1,2 @@
-<% if user_signed_in? && current_user.is_admin? %>
-    <%= link_to 'Batches', batches_path %>
-    <%= link_to 'Departments', departments_path %>
-    <%= link_to 'Regulations', regulations_path %>
-    <%= link_to 'Create User', new_user_path %>
-    <%= link_to 'Documents', documents_path %>
-    <%= link_to 'Notifications', notifications_path %>
-    
-<% elsif user_signed_in? %> 
-    <%= link_to 'Documents', documents_path %>
-    <%= link_to 'Notifications', notifications_path %>
-<% end %>
-
-
-
-
 <h1>Home#index</h1>
 <p>Find me in app/views/home/index.html.erb</p>

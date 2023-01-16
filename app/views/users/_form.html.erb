@@ -1,0 +1,78 @@
+<%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :registration_number %>
+    <%= form.text_field :reg_no %>
+  </div>    
+
+  <div class="field">
+    <%= form.label :mobile_number %>
+    <%= form.text_field :mobile_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :role_id %>
+    <%= form.collection_select :role_id, Role.all, :id, :name, :prompt => " -- Select -- " %>
+  </div>
+
+  <div class="field">
+    <%= form.label :college_id %>
+    <%= form.text_field :college_id, value: current_user.college_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :batch_id %>
+    <%= form.collection_select :batch_id, current_user.batches.all, :id, :year, :prompt => " -- Select -- " %>
+  </div>
+
+  <div class="field">
+    <%= form.label :regulation_id %>
+    <%= form.collection_select :regulation_id, current_user.regulations.all, :id, :name, :prompt => " -- Select -- " %>
+  </div>
+
+  <div class="field">
+    <%= form.label :department_id %>
+    <%= form.collection_select :department_id, current_user.departments.all, :id, :name, :prompt => " -- Select -- " %>
+  </div>
+
+  <div class="field">
+    <%= form.label :avatar %>
+    <%= form.file_field :avatar %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+  
+<% end %>

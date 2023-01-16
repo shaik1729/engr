@@ -8,8 +8,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :skip => [:registrations]
 
-  resources :users, except: :create
-  post 'create_user', to: 'users#create', as: :create_user
+  resources :users
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)

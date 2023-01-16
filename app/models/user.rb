@@ -8,7 +8,13 @@ class User < ApplicationRecord
   has_many :batches
   has_many :regulations
   has_many :departments
+  has_one_attached :avatar
 
+  before_save :upcase_fields
+
+  validates :email, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }
+  validates :role_id, presence: true
+  validates :college_id, presence: true
   
   def is_admin?
     self.role.code == "ADMIN"
@@ -22,4 +28,11 @@ class User < ApplicationRecord
     self.role.code == "STU"
   end
 
+  private
+
+  def upcase_fields
+    self.email.downcase!
+    self.name&.upcase!
+    self.reg_no&.upcase!
+  end
 end
