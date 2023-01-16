@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_16_065617) do
+ActiveRecord::Schema.define(version: 2023_01_16_071122) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -40,10 +40,9 @@ ActiveRecord::Schema.define(version: 2023_01_16_065617) do
 
   create_table "batches", force: :cascade do |t|
     t.string "year"
-    t.integer "user_id"
+    t.string "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_batches_on_user_id"
   end
 
   create_table "colleges", force: :cascade do |t|
@@ -52,25 +51,6 @@ ActiveRecord::Schema.define(version: 2023_01_16_065617) do
     t.string "code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "departments", force: :cascade do |t|
-    t.string "name"
-    t.string "short_form"
-    t.string "code"
-    t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_departments_on_user_id"
-  end
-
-  create_table "regulations", force: :cascade do |t|
-    t.string "name"
-    t.string "code"
-    t.integer "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_regulations_on_user_id"
   end
 
   create_table "roles", force: :cascade do |t|
