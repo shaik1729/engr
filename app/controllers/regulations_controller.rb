@@ -1,7 +1,7 @@
 class RegulationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_admin
   before_action :set_regulation, only: %i[ show edit update destroy ]
+  before_action :authorize_admin
 
   # GET /regulations or /regulations.json
   def index
@@ -71,7 +71,10 @@ class RegulationsController < ApplicationController
     end
 
     def authorize_admin
-      return unless !current_user.is_admin?
-      redirect_to root_path, alert: 'Admins only!'
+      if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
+        return raise Unauthorized unless @regulation.user == current_user
+      elsif ['new', 'create', 'index'].include?(params[:action])
+        return raise Unauthorized unless current_user.is_admin?
+      end
     end
 end
