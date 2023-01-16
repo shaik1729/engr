@@ -14,4 +14,12 @@ class User < ApplicationRecord
     self.role.code == "ADMIN"
   end
 
+  def is_faculty?
+    self.role.code == "FAC"
+  end
+
+  def is_student?
+    self.role.code == "STU"
+  end
+
 end
