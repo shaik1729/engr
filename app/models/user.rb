@@ -9,4 +9,10 @@ class User < ApplicationRecord
   has_many :batches
   has_many :regulations
   has_many :departments
+
+  
+  def is_admin?
+    self.role.code == "ADMIN"
+  end
+
 end

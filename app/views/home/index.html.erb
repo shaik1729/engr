@@ -1,0 +1,9 @@
+<% if current_user.is_admin? %>
+    <%= link_to 'Batches', batches_path %>
+    <%= link_to 'Departments', departments_path %>
+    <%= link_to 'Regulations', regulations_path %>
+<% end %>
+
+
+<h1>Home#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
