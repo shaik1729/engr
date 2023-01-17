@@ -1,6 +1,8 @@
 class Regulation < ApplicationRecord
     belongs_to :user
 
+    has_many :subjects
+
     before_save :upcase_fields
 
     private

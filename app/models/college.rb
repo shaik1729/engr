@@ -1,6 +1,8 @@
 class College < ApplicationRecord
     has_many :users
 
+    has_many :subjects
+
     before_save :upcase_fields
 
     validates :name, presence: true, uniqueness: true
