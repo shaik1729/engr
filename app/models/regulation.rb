@@ -2,6 +2,7 @@ class Regulation < ApplicationRecord
     belongs_to :user
 
     has_many :subjects
+    has_many :results
 
     before_save :upcase_fields
 

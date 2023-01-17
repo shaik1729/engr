@@ -1,7 +1,7 @@
 class DocumentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize, except: %i[ index ]
   before_action :set_document, only: %i[ show edit update destroy ]
+  before_action :authorize, except: %i[ index ]
 
   # GET /documents or /documents.json
   def index

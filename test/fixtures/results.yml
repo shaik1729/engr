@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  internal_marks: MyString
+  external_marks: MyString
+  total_marks: MyString
+  result: MyString
+  credits: MyString
+  grade: MyString
+  subject_id: MyString
+  regulation_id: MyString
+  batch_id: MyString
+  semester_id: MyString
+  user_id: MyString
+
+two:
+  internal_marks: MyString
+  external_marks: MyString
+  total_marks: MyString
+  result: MyString
+  credits: MyString
+  grade: MyString
+  subject_id: MyString
+  regulation_id: MyString
+  batch_id: MyString
+  semester_id: MyString
+  user_id: MyString

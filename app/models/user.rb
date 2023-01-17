@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :batches
   has_many :regulations
   has_many :departments
+  has_many :results
   has_one_attached :avatar
 
   before_save :upcase_fields

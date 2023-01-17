@@ -5,9 +5,11 @@
     <%= link_to 'Users', users_path %>
     <%= link_to 'Subjects', subjects_path %>
     <%= link_to 'Documents', documents_path %>
+    <%= link_to 'Results', results_path %>
     <%= link_to 'Notifications', notifications_path %>
 <% elsif user_signed_in? %> 
     <%= link_to 'Documents', documents_path %>
+    <%= link_to 'Results', results_path %>
     <%= link_to 'Notifications', notifications_path %>
 <% else %>
     <%= link_to "Sign In", new_user_session_path %>

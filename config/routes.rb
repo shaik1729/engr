@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :results
   resources :subjects
   resources :notifications
   resources :documents

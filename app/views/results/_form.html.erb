@@ -1,0 +1,77 @@
+<%= form_with(model: result) do |form| %>
+  <% if result.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(result.errors.count, "error") %> prohibited this result from being saved:</h2>
+
+      <ul>
+        <% result.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :subject_id %>
+    <%= form.collection_select :subject_id, current_user.college.subjects.all, :id, :name, :prompt => " -- Select -- " %> 
+  </div>
+
+  <div class="field">
+    <%= form.label :internal_marks %>
+    <%= form.text_field :internal_marks %>
+  </div>
+
+  <div class="field">
+    <%= form.label :external_marks %>
+    <%= form.text_field :external_marks %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total_marks %>
+    <%= form.text_field :total_marks %>
+  </div>
+
+  <div class="field">
+    <%= form.label :result %>
+    <%= form.select :result, options_for_select([['PASS', 'P'], ['FAIL','F'], ['ABSENT', 'AB']]), :prompt => " -- Select -- " %>
+  </div>
+
+  <div class="field">
+    <%= form.label :credits %>
+    <%= form.text_field :credits %>
+  </div>
+
+  <div class="field">
+    <%= form.label :grade %>
+    <%= form.text_field :grade %>
+  </div>
+
+  <div class="field">
+    <%= form.label :regulation_id %>
+    <%= form.collection_select :regulation_id, current_user.regulations.all, :id, :name, :prompt => " -- Select -- " %>
+  </div>
+
+  <div class="field">
+    <%= form.label :batch_id %>
+    <%= form.collection_select :batch_id, current_user.batches.all, :id, :year, :prompt => " -- Select -- " %>
+  </div>
+
+  <div class="field">
+    <%= form.label :semester_id %>
+    <%= form.collection_select :semester_id, Semester.all, :id, :sem, :prompt => " -- Select -- " %>
+  </div>
+
+  <div class="field">
+    <%= form.label :college_id %>
+    <%= form.text_field :college_id, value: current_user.college.id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :student_roll_number %>
+    <%= form.collection_select :user_id, User.where('college_id = ? and role_id = 2', current_user.college.id), :id, :reg_no, :prompt => " -- Select -- " %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

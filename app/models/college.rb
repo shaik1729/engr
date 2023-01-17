@@ -2,6 +2,7 @@ class College < ApplicationRecord
     has_many :users
 
     has_many :subjects
+    has_many :results
 
     before_save :upcase_fields
 

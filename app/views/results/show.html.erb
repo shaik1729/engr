@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Internal marks:</strong>
+  <%= @result.internal_marks %>
+</p>
+
+<p>
+  <strong>External marks:</strong>
+  <%= @result.external_marks %>
+</p>
+
+<p>
+  <strong>Total marks:</strong>
+  <%= @result.total_marks %>
+</p>
+
+<p>
+  <strong>Result:</strong>
+  <%= @result.result %>
+</p>
+
+<p>
+  <strong>Credits:</strong>
+  <%= @result.credits %>
+</p>
+
+<p>
+  <strong>Grade:</strong>
+  <%= @result.grade %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @result.subject_id %>
+</p>
+
+<p>
+  <strong>Regulation:</strong>
+  <%= @result.regulation_id %>
+</p>
+
+<p>
+  <strong>Batch:</strong>
+  <%= @result.batch_id %>
+</p>
+
+<p>
+  <strong>Semester:</strong>
+  <%= @result.semester_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @result.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_result_path(@result) %> |
+<%= link_to 'Back', results_path %>
