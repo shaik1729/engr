@@ -5,7 +5,15 @@ class UsersController < ApplicationController
 
   
     def index
-        @users = User.order('id DESC').where('college_id = ?', current_user.college_id)
+        @role_wise_users = User.where('college_id = ?', current_user.college_id).group_by(&:role_id).sort.to_h
+        @roles = {
+            '1' => 'Admin',
+            '2' => 'Student',
+            '3' => 'Faculty'
+        }
+        @batches = Batch.where('college_id = ?', current_user.college_id).group_by(&:id).to_h
+        @regulations = Regulation.where('college_id = ?', current_user.college_id).group_by(&:id).to_h
+        @departments = Department.where('college_id = ?', current_user.college_id).group_by(&:id).to_h
     end
 
     def show
@@ -60,7 +68,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.require(:user).permit(:email, :password, :password_confirmation, :role_id, :college_id, :name, :reg_no, :mobile_number, :batch_id, :regulation_id, :department_id, :avatar)
+        params.require(:user).permit(:email, :password, :password_confirmation, :role_id, :college_id, :name, :reg_no, :mobile_number, :batch_id, :regulation_id, :department_id)
     end
   
     def authorize_admin
