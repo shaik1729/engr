@@ -3,6 +3,8 @@ class Regulation < ApplicationRecord
 
     has_many :subjects
     has_many :results
+    has_many :documents
+    belongs_to :college
 
     before_save :upcase_fields
 
