@@ -16,6 +16,12 @@
     <%= form.text_field :year %>
   </div>
 
+  <div class="field">
+    <%= form.label :college_id %>
+    <%= form.text_field :college_id, value: current_user.college_id %>
+  </div>
+
+
   <div class="field d-none">
     <%= form.label :user_id %>
     <%= form.text_field :user_id, value: current_user.id %>

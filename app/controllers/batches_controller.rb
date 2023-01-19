@@ -67,7 +67,7 @@ class BatchesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def batch_params
-      params.require(:batch).permit(:year, :user_id)
+      params.require(:batch).permit(:year, :user_id, :college_id)
     end
 
     def authorize_admin
