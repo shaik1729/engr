@@ -11,8 +11,6 @@ class User < ApplicationRecord
   has_many :results
   has_many :documents
   
-  has_one_attached :avatar
-
   before_save :upcase_fields
 
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }
