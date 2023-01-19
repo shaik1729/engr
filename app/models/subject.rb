@@ -3,8 +3,10 @@ class Subject < ApplicationRecord
     belongs_to :regulation
     belongs_to :college
 
-    has_many :results
 
+    has_many :results
+    has_many :documents
+    
     before_save :upcase_fields
 
     validates :name, presence: true

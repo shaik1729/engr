@@ -31,9 +31,9 @@
     <%= form.collection_select :semester_id, Semester.all, :id, :sem, :prompt => " -- Select -- " %>
   </div>
 
-  <div class="field">
+  <div class="field d-none">
     <%= form.label :college_id %>
-    <%= form.text_field :college_id, value: current_user.college_id, :prompt => " -- Select -- " %>
+    <%= form.text_field :college_id, value: current_user.college_id %>
   </div>
 
   <div class="actions">

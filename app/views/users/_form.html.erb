@@ -36,7 +36,7 @@
     <%= form.collection_select :role_id, Role.all, :id, :name, :prompt => " -- Select -- " %>
   </div>
 
-  <div class="field">
+  <div class="field d-none">
     <%= form.label :college_id %>
     <%= form.text_field :college_id, value: current_user.college_id %>
   </div>

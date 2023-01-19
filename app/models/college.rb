@@ -3,6 +3,9 @@ class College < ApplicationRecord
 
     has_many :subjects
     has_many :results
+    has_many :documents
+    has_many :departments
+    has_many :regulations
 
     before_save :upcase_fields
 
