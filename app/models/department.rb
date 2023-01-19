@@ -1,6 +1,9 @@
 class Department < ApplicationRecord
     belongs_to :user
     before_save :upcase_fields
+    
+    has_many :documents
+    belongs_to :college
 
     private
 
