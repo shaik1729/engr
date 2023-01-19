@@ -1,4 +1,4 @@
-<nav class="navbar bg-body-tertiary fixed-top">
+<nav class="navbar bg-body-tertiary sticky-top">
   <div class="container-fluid">
     <%= link_to "ecommunity", root_path, class: "navbar-brand" %>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -34,10 +34,6 @@
 
                 <li class="nav-item">
                     <%= link_to 'Subjects', subjects_path, class: "nav-link" %>
-                </li>
-
-                <li class="nav-item">
-                    <%= link_to 'Documents', documents_path, class: "nav-link" %>
                 </li>
 
                 <li class="nav-item">

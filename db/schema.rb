@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_17_054205) do
+ActiveRecord::Schema.define(version: 2023_01_19_104047) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2023_01_17_054205) do
     t.string "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "college_id"
   end
 
   create_table "colleges", force: :cascade do |t|
@@ -88,6 +89,7 @@ ActiveRecord::Schema.define(version: 2023_01_17_054205) do
     t.string "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "college_id"
   end
 
   create_table "documents", force: :cascade do |t|
@@ -96,6 +98,11 @@ ActiveRecord::Schema.define(version: 2023_01_17_054205) do
     t.string "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "department_id"
+    t.string "regulation_id"
+    t.string "subject_id"
+    t.string "college_id"
+    t.string "semester_id"
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -111,6 +118,7 @@ ActiveRecord::Schema.define(version: 2023_01_17_054205) do
     t.string "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "college_id"
   end
 
   create_table "results", force: :cascade do |t|
