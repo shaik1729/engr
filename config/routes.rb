@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   devise_for :users, :skip => [:registrations]
 
-  resources :users
+  resources :users, except: [:show]
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
