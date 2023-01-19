@@ -22,7 +22,6 @@ ActiveAdmin.register User do
     column :college
     column :role
     column :created_at
-    column :updated_at
     actions
   end
 
