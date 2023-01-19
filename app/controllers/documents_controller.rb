@@ -5,7 +5,17 @@ class DocumentsController < ApplicationController
 
   # GET /documents or /documents.json
   def index
-    @documents = Document.all
+    if current_user.is_faculty?
+      @documents = current_user.documents.all.order("id DESC")
+    else
+      @sem_wise_documents = Document.where(
+        'college_id = ? and 
+        regulation_id = ? and 
+        department_id = ?', 
+        current_user.college_id, 
+        current_user.regulation_id, 
+        current_user.department_id).group_by(&:semester_id).sort.to_h
+    end
   end
 
   # GET /documents/1 or /documents/1.json
@@ -67,11 +77,14 @@ class DocumentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def document_params
-      params.require(:document).permit(:title, :content, :user_id, :file)
+      params.require(:document).permit(:title, :content, :user_id, :file, :department_id, :regulation_id, :subject_id, :semester_id, :college_id)
     end
 
     def authorize
-      return unless (current_user.is_student?)
-      redirect_to root_path, alert: 'Only faculty and admin can access this page'
+      if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
+        return raise Unauthorized unless @document.user.id == current_user.id
+      elsif ['new', 'create'].include?(params[:action])
+        return raise Unauthorized unless current_user.is_faculty?
+      end
     end
 end
