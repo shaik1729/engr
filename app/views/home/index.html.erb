@@ -1,2 +1,24 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<% if user_signed_in? && current_user.is_admin? %>
+    <%= render 'home/admin_dashboard' %>
+<% elsif user_signed_in? && current_user.is_faculty? %>
+    <%= render 'home/faculty_dashboard' %>
+<% elsif user_signed_in? && current_user.is_student? %>
+    <%= render 'home/student_dashboard' %>
+<% else %>
+<div class="row d-flex justify-content-around">
+<div class="card mb-3">
+<div class="row g-0">
+  <div class="col-md-4">
+    <img src="https://storage.googleapis.com/wp-static/wp-ucp/2020/03/file-11133-ce15309b1c723ea2d84f0bfb50dcf8be.jpg" class="img-fluid rounded-start" alt="...">
+  </div>
+  <div class="col-md-8">
+    <div class="card-body">
+      <h5 class="card-title">ecommunity stands for Engineering Community</h5>
+      <p class="card-text">..................................................</p>
+      <%= link_to 'Sign In', new_user_session_path, class: "btn btn-primary" %>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<% end %>
