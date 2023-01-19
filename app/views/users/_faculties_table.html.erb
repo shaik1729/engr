@@ -1,0 +1,23 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Mobile number</th>
+            <th>Department</th>
+            <th colspan="2"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% users.each do |user| %>
+            <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.mobile_number %></td>
+            <td><%= @departments[user.department_id.to_i]&.first&.short_form %></td>
+            <td><%= link_to 'Update', edit_user_path(user) %></td>
+            <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
