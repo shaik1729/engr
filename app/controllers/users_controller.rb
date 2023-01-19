@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   
     def authorize_admin
         if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
-          return raise Unauthorized unless @user.college_id == current_user.college_id
+          return raise Unauthorized unless (@user.college_id == current_user.college_id and current_user.is_admin?)
         elsif ['new', 'create', 'index'].include?(params[:action])
           return raise Unauthorized unless current_user.is_admin?
         end
