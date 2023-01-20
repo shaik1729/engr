@@ -11,27 +11,27 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+  <div class="field mt-2">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control", placeholder: "Enter the regulation ex: regulation 20" %>
   </div>
 
-  <div class="field">
-    <%= form.label :code %>
-    <%= form.text_field :code %>
+  <div class="field mt-2">
+    <%= form.label :code, class: "form-label" %>
+    <%= form.text_field :code, class: "form-control", placeholder: "Enter the regulation code ex: r20" %>
   </div>
 
-  <div class="field">
+  <div class="field d-none">
     <%= form.label :college_id %>
     <%= form.text_field :college_id, value: current_user.college_id %>
   </div>
 
-  <div class="field">
+  <div class="field d-none">
     <%= form.label :user_id %>
     <%= form.text_field :user_id, value: current_user.id %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions mt-2">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

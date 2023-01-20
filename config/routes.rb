@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :documents, except: [:show]
   get 'home/index'
   resources :departments, except: [:show]
-  resources :regulations
+  resources :regulations, except: [:show]
   resources :batches, except: [:show]
 
   devise_for :users, :skip => [:registrations]

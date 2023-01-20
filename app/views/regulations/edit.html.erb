@@ -1,6 +1,8 @@
-<h1>Editing Regulation</h1>
+<div class="card mt-3">
+  <h5 class="card-header">New Regulation</h5>
+  <div class="card-body">
+    <%= render 'form', regulation: @regulation %>
 
-<%= render 'form', regulation: @regulation %>
-
-<%= link_to 'Show', @regulation %> |
-<%= link_to 'Back', regulations_path %>
+    <%= link_to '< Back', regulations_path, class: "btn btn-secondary mt-2" %>
+  </div>
+</div>
