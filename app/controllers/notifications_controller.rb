@@ -1,11 +1,24 @@
 class NotificationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize, except: %i[ index ]
   before_action :set_notification, only: %i[ show edit update destroy ]
+  before_action :authorize, except: %i[ index ]
 
   # GET /notifications or /notifications.json
   def index
-    @notifications = Notification.all
+    @college_notifications = Notification.where('college_id = ? and by_admin = true', current_user.college_id).order(id: :desc)
+    if current_user.is_faculty?
+      @notifications = current_user.notifications.order(id: :desc)
+    elsif current_user.is_student?
+      @notifications = Notification.where(
+        'college_id = ? and 
+          batch_id = ? and 
+          department_id = ? and 
+          regulation_id = ? and 
+          by_admin = false', current_user.college_id, 
+                              current_user.batch_id, 
+                              current_user.department_id, 
+                              current_user.regulation_id).order(id: :desc)
+    end
   end
 
   # GET /notifications/1 or /notifications/1.json
@@ -25,6 +38,10 @@ class NotificationsController < ApplicationController
   def create
     @notification = Notification.new(notification_params)
 
+    if current_user.is_admin?
+      @notification.by_admin = true
+    end
+    
     respond_to do |format|
       if @notification.save
         format.html { redirect_to notifications_path, notice: "Notification was successfully created." }
@@ -67,11 +84,14 @@ class NotificationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def notification_params
-      params.require(:notification).permit(:title, :user_id, :file)
+      params.require(:notification).permit(:title, :file, :user_id, :department_id, :regulation_id, :college_id, :batch_id)
     end
-
+    
     def authorize
-      return unless (current_user.is_student?)
-      redirect_to root_path, alert: 'Only faculty and admin can access this page'
+      if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
+        return raise Unauthorized unless @notification.user.id == current_user.id
+      elsif ['new', 'create'].include?(params[:action])
+        return raise Unauthorized unless !current_user.is_student?
+      end
     end
 end

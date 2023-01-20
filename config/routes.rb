@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :results
   resources :subjects, except: [:show]
-  resources :notifications
+  resources :notifications, only: [:index, :new, :create]
   resources :documents, except: [:show]
   get 'home/index'
   resources :departments, except: [:show]

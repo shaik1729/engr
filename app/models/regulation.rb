@@ -4,6 +4,7 @@ class Regulation < ApplicationRecord
     has_many :subjects
     has_many :results
     has_many :documents
+    has_many :notifications
     belongs_to :college
 
     before_save :upcase_fields

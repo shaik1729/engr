@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :departments
   has_many :results
   has_many :documents
+  has_many :notifications
   
   before_save :upcase_fields
 

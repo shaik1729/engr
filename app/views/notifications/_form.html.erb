@@ -11,22 +11,42 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+  <div class="field mt-2">
+    <%= form.label :title, class: "form-label" %>
+    <%= form.text_field :title, class: "form-control", placeholder: "Enter the title" %>
+  </div>
+  
+  <div class="field mt-2">
+    <%= form.label :file, class: "form-label" %>
+    <%= form.file_field :file, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="field mt-2">
+    <%= form.label :batch_id %>
+    <%= form.collection_select :batch_id, Batch.where(college_id: current_user.college.id), :id, :year, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+  </div>
+
+  <div class="field mt-2">
+    <%= form.label :regulation_id %>
+    <%= form.collection_select :regulation_id, Regulation.where(college_id: current_user.college.id), :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+  </div>
+
+  <div class="field mt-2">
+    <%= form.label :department_id %>
+    <%= form.collection_select :department_id, Department.where(college_id: current_user.college.id), :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+  </div>
+
+  <div class="field d-none">
+    <%= form.label :college_id %>
+    <%= form.text_field :college_id, value: current_user.college.id %>
+  </div>
+
+  <div class="field d-none">
     <%= form.label :user_id %>
     <%= form.text_field :user_id, value: current_user.id %>
   </div>  
-  
-  <div class="field">
-    <%= form.label :file %>
-    <%= form.file_field :file %>
-  </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions mt-2">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

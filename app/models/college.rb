@@ -7,6 +7,7 @@ class College < ApplicationRecord
     has_many :departments
     has_many :regulations
     has_many :batches
+    has_many :notifications
 
     before_save :upcase_fields
 
