@@ -1,6 +1,8 @@
-<h1>Editing Subject</h1>
+<div class="card mt-3">
+  <h5 class="card-header">Editing Subject</h5>
+  <div class="card-body">
+    <%= render 'form', subject: @subject %>
 
-<%= render 'form', subject: @subject %>
-
-<%= link_to 'Show', @subject %> |
-<%= link_to 'Back', subjects_path %>
+    <%= link_to '< Back', subjects_path, class: "btn btn-secondary mt-2" %>
+  </div>
+</div>

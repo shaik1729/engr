@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :results
-  resources :subjects
+  resources :subjects, except: [:show]
   resources :notifications
   resources :documents, except: [:show]
   get 'home/index'
