@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :notifications
   resources :documents, except: [:show]
   get 'home/index'
-  resources :departments
+  resources :departments, except: [:show]
   resources :regulations
   resources :batches, except: [:show]
 
