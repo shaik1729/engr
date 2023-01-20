@@ -11,12 +11,12 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :year %>
-    <%= form.text_field :year %>
+  <div class="field mt-2">
+    <%= form.label :year, class: "form-label" %>
+    <%= form.text_field :year, class: "form-control", placeholder: "Enter the batch ex: 2019-2023" %>
   </div>
 
-  <div class="field">
+  <div class="field d-none">
     <%= form.label :college_id %>
     <%= form.text_field :college_id, value: current_user.college_id %>
   </div>
@@ -27,7 +27,7 @@
     <%= form.text_field :user_id, value: current_user.id %>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="actions mt-2">
+    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'home/index'
   resources :departments
   resources :regulations
-  resources :batches
+  resources :batches, except: [:show]
 
   devise_for :users, :skip => [:registrations]
 

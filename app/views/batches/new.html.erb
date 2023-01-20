@@ -1,5 +1,8 @@
-<h1>New Batch</h1>
+<div class="card mt-3">
+  <h5 class="card-header">New Batch</h5>
+  <div class="card-body">
+    <%= render 'form', batch: @batch %>
 
-<%= render 'form', batch: @batch %>
-
-<%= link_to 'Back', batches_path %>
+    <%= link_to '< Back', batches_path, class: "btn btn-secondary mt-2" %>
+  </div>
+</div>

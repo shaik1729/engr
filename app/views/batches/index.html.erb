@@ -1,28 +1,27 @@
-<p id="notice"><%= notice %></p>
+<%= link_to 'New Batch', new_batch_path, class: "btn btn-primary" %>
 
-<h1>Batches</h1>
+<div class="card mt-3">
+  <h5 class="card-header">Batches</h5>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Year</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
 
-<table>
-  <thead>
-    <tr>
-      <th>Year</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+      <tbody>
+        <% @batches.each do |batch| %>
+          <tr>
+            <td><%= batch.year %></td>
+            <td><%= link_to 'Edit', edit_batch_path(batch) %></td>
+            <td><%= link_to 'Destroy', batch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-  <tbody>
-    <% @batches.each do |batch| %>
-      <tr>
-        <td><%= batch.year %></td>
-        <td><%= batch.user.email %></td>
-        <td><%= link_to 'Edit', edit_batch_path(batch) %></td>
-        <td><%= link_to 'Destroy', batch, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
-
-<%= link_to 'New Batch', new_batch_path %>
