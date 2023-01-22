@@ -38,7 +38,7 @@
 
   <div class="field mt-3">
     <%= form.label :subject_id, class: "form-label" %>
-    <%= form.collection_select :subject_id, Subject.where('college_id = ?', current_user.college.id), :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    <%= form.collection_select :subject_id, Subject.where('college_id = ?', current_user.college.id), :id, :subject_name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
   </div>
 
   <div class="field d-none">
