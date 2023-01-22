@@ -15,6 +15,10 @@ class Subject < ApplicationRecord
     validates :semester_id, presence: true
     validates :college_id, presence: true
 
+    def subject_name
+        "#{self.code} (#{self.name})"
+    end
+
     private
 
     def upcase_fields
