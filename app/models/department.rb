@@ -3,7 +3,8 @@ class Department < ApplicationRecord
     before_save :upcase_fields
     
     has_many :documents
-    has_many :notification
+    has_many :notifications
+    has_many :results
     
     belongs_to :college
 
