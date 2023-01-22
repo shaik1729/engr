@@ -1,9 +1,35 @@
 <div class="card mt-4">
-  <h2 class="card-header">
-    New User
-  </h2>
+  <div class="card-header">
+    Create Mutlitple Users
+  </div>
   <div class="card-body">
-    <%= render 'form', user: @user %>
-    <%= link_to '< Back', users_path, class: "btn btn-secondary mt-3" %>
+    <div class="row">
+      <div class="col">
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title">Bulk Upload</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Please Upload a excel file with the given format. <a href="https://docs.google.com/spreadsheets/d/1erEi_MG9GRb8fyYOHkKOdmRnG77Sv-_j/edit?usp=sharing&ouid=110741149122925696728&rtpof=true&sd=true" target="_blank">Students</a></h6>
+            <h6 class="card-subtitle mb-2 text-muted">Please Upload a excel file with the given format. <a href="https://docs.google.com/spreadsheets/d/1vvriVQjw7pAfOPTyp5p22JztlCOD_BQa/edit?usp=sharing&ouid=110741149122925696728&rtpof=true&sd=true" target="_blank">Faculty</a></h6>
+            <%= render 'bulk_user_creation_form' %>
+          </div>
+        </div>
+
+        <div class="card mt-4">
+          <div class="card-body">
+            <h5 class="card-title">New User(Manual)</h5>
+            <h6 class="card-subtitle mb-2 text-muted">For creating single user</h6>
+
+            <%= render 'form', user: @user %>
+
+            <%= link_to '< Back', users_path, class: "btn btn-secondary mt-4" %>   
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+
+
+
+

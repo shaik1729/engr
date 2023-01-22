@@ -1,3 +1,5 @@
+require 'creek'
+
 class UsersController < ApplicationController
     before_action :authenticate_user!
     before_action :set_user, only: %i[ show edit update destroy ]
@@ -5,7 +7,7 @@ class UsersController < ApplicationController
 
   
     def index
-        @role_wise_users = User.where('college_id = ?', current_user.college_id).group_by(&:role_id).sort.to_h
+        @role_wise_users = User.where('college_id = ?', current_user.college_id).sort_by(&:id).reverse.group_by(&:role_id).to_h
         @roles = {
             '1' => 'Admin',
             '2' => 'Student',
@@ -58,6 +60,78 @@ class UsersController < ApplicationController
             format.html { redirect_to users_path, notice: "User was successfully destroyed." }
             format.json { head :no_content }
         end
+    end
+
+    def import
+        begin
+                
+            workbook = Creek::Book.new params[:file].path
+            worksheets = workbook.sheets
+
+            skip_header = true
+
+            if params[:role_id] == '2'
+
+                worksheets.each do |worksheet|
+                    worksheet.rows.each do |row|
+
+                        if skip_header
+                            skip_header = false
+                            next
+                        end
+
+                        row_cells = row.values
+                    
+                        password = (0...8).map { (65 + rand(26)).chr }.join
+                    
+                        User.create!(
+                            reg_no: row_cells[0], 
+                            name: row_cells[1], 
+                            email: row_cells[2], 
+                            mobile_number: row_cells[3].to_i, 
+                            password: password, 
+                            password_confirmation: password, 
+                            role_id: params[:role_id], 
+                            college_id: params[:college_id], 
+                            department_id: params[:department_id], 
+                            batch_id: params[:batch_id], 
+                            regulation_id: params[:regulation_id])
+                
+                    Rails.logger.info "Student User created: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{row_cells[3]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]} #{params[:batch_id]} #{params[:regulation_id]} "
+                    end
+                end
+            else
+                worksheets.each do |worksheet|
+                    worksheet.rows.each do |row|
+
+                        if skip_header
+                            skip_header = false
+                            next
+                        end
+
+                        row_cells = row.values
+
+                        password = (0...8).map { (65 + rand(26)).chr }.join
+                        
+                        User.create!(
+                            name: row_cells[0], 
+                            email: row_cells[1], 
+                            mobile_number: row_cells[2].to_i, 
+                            password: password, 
+                            password_confirmation: password, 
+                            role_id: params[:role_id], 
+                            college_id: params[:college_id], 
+                            department_id: params[:department_id])
+                        
+                        Rails.logger.info "Faculty User created: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]}"
+                    end
+                end
+            end
+        rescue => e
+            Rails.logger.info "Error: #{e}"
+            return redirect_to users_path, alert: "Error: #{e}"
+        end
+        return redirect_to users_path, notice: "Users imported successfully."
     end
 
   

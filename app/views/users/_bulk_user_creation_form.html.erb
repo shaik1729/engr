@@ -1,0 +1,35 @@
+<%= form_with url: import_users_path, method: :post do |form| %>
+    <div class="field mt-2">
+        <%= form.label :role_id, class: "form-label" %>
+        <%= form.collection_select :role_id, Role.all, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    </div>
+
+    <div class="field mt-2">
+        <%= form.label :department_id %>
+        <%= form.collection_select :department_id, current_user.departments.all, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    </div>
+
+    <div class="field mt-2">
+        <%= form.label :batch_id %>
+        <%= form.collection_select :batch_id, current_user.batches.all, :id, :year, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    </div>
+
+    <div class="field mt-2">
+        <%= form.label :regulation_id %>
+        <%= form.collection_select :regulation_id, current_user.regulations.all, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    </div>
+
+    <div class="field d-none">
+        <%= form.label :college_id %>
+        <%= form.text_field :college_id, value: current_user.college_id %>
+    </div>
+
+    <div class="field mt-2">
+        <%= form.label :file, class: "form-label" %>
+        <%= form.file_field :file, class: "form-control" %>
+    </div>
+
+    <div class="actions">
+        <%= form.submit 'Create Users', class: "btn btn-primary mt-2" %>
+    </div>
+<% end %>

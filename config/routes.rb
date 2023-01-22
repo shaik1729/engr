@@ -10,7 +10,9 @@ Rails.application.routes.draw do
 
   devise_for :users, :skip => [:registrations]
 
-  resources :users, except: [:show]
+  resources :users, except: [:show] do
+    collection { post :import }
+  end
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
