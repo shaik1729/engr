@@ -1,47 +1,15 @@
-<p id="notice"><%= notice %></p>
+<%= form_tag results_path, :method => 'get', class: "d-flex" do %>
+  <%= text_field_tag :search, params[:search], :placeholder => "Enter roll number", class: "form-control me-2" %>
+  <%= submit_tag "Search Results", class: "btn btn-outline-success", :name => nil %>
+<% end %>
 
-<h1>Results</h1>
+<% @semester_wise_results.each do |semester_id, results| %>
+  <div class="card mt-3">
+    <h5 class="card-header"><%= @semesters[semester_id] %></h5>
+    <div class="card-body">
+      <%= render 'results/results_table', results: results %>
+    </div>
+  </div>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Internal marks</th>
-      <th>External marks</th>
-      <th>Total marks</th>
-      <th>Result</th>
-      <th>Credits</th>
-      <th>Grade</th>
-      <th>Subject</th>
-      <th>Regulation</th>
-      <th>Batch</th>
-      <th>Semester</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
 
-  <tbody>
-    <% @results.each do |result| %>
-      <tr>
-        <td><%= result.internal_marks %></td>
-        <td><%= result.external_marks %></td>
-        <td><%= result.total_marks %></td>
-        <td><%= result.result %></td>
-        <td><%= result.credits %></td>
-        <td><%= result.grade %></td>
-        <td><%= result.subject_id %></td>
-        <td><%= result.regulation_id %></td>
-        <td><%= result.batch_id %></td>
-        <td><%= result.semester_id %></td>
-        <td><%= result.user_id %></td>
-        <td><%= link_to 'Show', result %></td>
-        <td><%= link_to 'Edit', edit_result_path(result) %></td>
-        <td><%= link_to 'Destroy', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Result', new_result_path %>

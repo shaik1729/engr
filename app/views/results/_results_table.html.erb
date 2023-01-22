@@ -1,0 +1,32 @@
+<table class="table table-responsive table-striped">
+  <thead>
+    <tr>
+      <th>Subject</th>
+      <th>Internal marks</th>
+      <th>External marks</th>
+      <th>Total marks</th>
+      <th>Result</th>
+      <th>Credits</th>
+      <th>Grade</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% results.each do |result| %>
+      <tr>
+        <td><%= result.subject.name %></td>
+        <td><%= result.internal_marks %></td>
+        <td><%= result.external_marks %></td>
+        <td><%= result.total_marks %></td>
+        <td><%= result.result %></td>
+        <td><%= result.credits %></td>
+        <td><%= result.grade %></td>
+        <% if current_user.is_admin? %>
+            <td><%= link_to 'Update', edit_result_path(result) %></td>
+            <td><%= link_to 'Destroy', result, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,23 @@
+<%= form_with url: import_results_path, method: :post do |form| %>
+  
+  <div class="field mt-2">
+    <%= form.label :semester_id, class: 'form-field' %>
+    <%= form.collection_select :semester_id, Semester.all, :id, :sem, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+  </div>
+
+  
+  <div class="field d-none">
+    <%= form.label :college_id, class: 'form-field' %>
+    <%= form.text_field :college_id, value: current_user.college.id %>
+  </div>
+
+  <div class="field mt-2">
+    <%= form.label :file, class: 'form-field' %>
+    <%= form.file_field :file, class: 'form-control' %>
+  </div>
+
+  <div class="actions mt-2">
+    <%= form.submit 'Submit', class: 'btn btn-primary' %>
+  </div>
+
+<% end %>

@@ -1,6 +1,9 @@
-<h1>Editing Result</h1>
-
-<%= render 'form', result: @result %>
-
-<%= link_to 'Show', @result %> |
-<%= link_to 'Back', results_path %>
+<div class="card mt-4">
+  <h2 class="card-header">
+    Editing Result
+  </h2>
+  <div class="card-body">
+    <%= render 'form', result: @result %>
+    <%= link_to '< Back', results_path, class: "btn btn-secondary mt-3" %>
+  </div>
+</div>
