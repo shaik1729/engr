@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_23_020355) do
+ActiveRecord::Schema.define(version: 2023_01_23_023959) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 2023_01_23_020355) do
 
   create_table "batches", force: :cascade do |t|
     t.string "year"
-    t.string "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "college_id"

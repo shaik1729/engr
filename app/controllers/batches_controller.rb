@@ -5,7 +5,7 @@ class BatchesController < ApplicationController
 
   # GET /batches or /batches.json
   def index
-    @batches = current_user.batches.all
+    @batches = current_user.college.batches.order(id: :desc)
   end
 
   # GET /batches/1 or /batches/1.json
@@ -24,6 +24,12 @@ class BatchesController < ApplicationController
   # POST /batches or /batches.json
   def create
     @batch = Batch.new(batch_params)
+
+    @batch.college_id = current_user.college_id
+
+    if Batch.exists?(year: @batch.year, college_id: @batch.college_id)
+      return redirect_to batches_url, notice: "Batch already exists."
+    end
 
     respond_to do |format|
       if @batch.save
@@ -67,12 +73,12 @@ class BatchesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def batch_params
-      params.require(:batch).permit(:year, :user_id, :college_id)
+      params.require(:batch).permit(:year)
     end
 
     def authorize_admin
-      if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
-        return raise Unauthorized unless @batch.user == current_user
+      if ['edit', 'update', 'destroy', 'show'].include?(params[:action]) and current_user.is_admin?
+        return raise Unauthorized unless @batch.college_id == current_user.college_id
       elsif ['new', 'create', 'index'].include?(params[:action])
         return raise Unauthorized unless current_user.is_admin?
       end
