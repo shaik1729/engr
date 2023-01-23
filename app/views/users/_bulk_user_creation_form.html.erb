@@ -6,17 +6,17 @@
 
     <div class="field mt-2">
         <%= form.label :department_id %>
-        <%= form.collection_select :department_id, current_user.departments.all, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+        <%= form.collection_select :department_id, current_user.college.departments.all, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
     </div>
 
     <div class="field mt-2">
         <%= form.label :batch_id %>
-        <%= form.collection_select :batch_id, current_user.batches.all, :id, :year, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+        <%= form.collection_select :batch_id, current_user.college.batches.all, :id, :year, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
     </div>
 
     <div class="field mt-2">
         <%= form.label :regulation_id %>
-        <%= form.collection_select :regulation_id, current_user.regulations.all, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+        <%= form.collection_select :regulation_id, current_user.college.regulations.all, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
     </div>
 
     <div class="field d-none">
