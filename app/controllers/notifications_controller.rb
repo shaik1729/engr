@@ -49,9 +49,10 @@ class NotificationsController < ApplicationController
     if current_user.is_admin?
       @notification.by_admin = true
     end
-    
+
     respond_to do |format|
       if @notification.save
+        NotificationMailer.with(notification: @notification).new_notification.deliver_later
         format.html { redirect_to notifications_path, notice: "Notification was successfully created." }
         format.json { render :show, status: :created, location: @notification }
       else
