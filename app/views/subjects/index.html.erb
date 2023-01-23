@@ -1,5 +1,7 @@
 <%= link_to 'New Subject', new_subject_path, class: 'btn btn-primary' %>
 
+<%= render 'subjects/search_form', q: @q %>
+
 <div class="card mt-3">
   <h5 class="card-header">Subjects</h5>
   <div class="card-body">

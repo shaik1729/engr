@@ -5,6 +5,11 @@ class SubjectsController < ApplicationController
 
   # GET /subjects or /subjects.json
   def index
+    @q = Subject.where(college_id: current_user.college_id).ransack(params[:q])
+    if !params[:q].nil?
+        @subjects = @q.result(distinct: true).order(id: :desc).paginate(page: params[:page], per_page: 10)
+        render 'search_results'
+    end
     @subjects = current_user.college.subjects.order('id DESC').paginate(page: params[:page], per_page: 10)
   end
 
