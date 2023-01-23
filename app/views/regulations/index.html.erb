@@ -23,6 +23,7 @@
         <% end %>
       </tbody>
     </table>
+    <%= will_paginate(@regulations, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
   </div>
 </div>
 

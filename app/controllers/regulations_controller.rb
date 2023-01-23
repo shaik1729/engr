@@ -5,7 +5,7 @@ class RegulationsController < ApplicationController
 
   # GET /regulations or /regulations.json
   def index
-    @regulations = current_user.college.regulations.order(id: :desc)
+    @regulations = current_user.college.regulations.order(id: :desc).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /regulations/1 or /regulations/1.json
