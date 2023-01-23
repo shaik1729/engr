@@ -5,7 +5,7 @@ class SubjectsController < ApplicationController
 
   # GET /subjects or /subjects.json
   def index
-    @subjects = current_user.college.subjects.order('id DESC').paginate(page: params[:page])
+    @subjects = current_user.college.subjects.order('id DESC').paginate(page: params[:page], per_page: 10)
   end
 
   # GET /subjects/1 or /subjects/1.json
