@@ -63,12 +63,12 @@ class UsersController < ApplicationController
 
     def import
         begin
-            if params[:file].nil? or params[:role_id].nil? or params[:department_id].nil? or params[:batch_id].nil? or params[:regulation_id].nil?
-                return redirect_to users_path, notice: "Please select a file and all the fields"
-            end
-
-            if params[:file].content_type != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-                return redirect_to users_path, notice: "Please select a valid file"
+            if params[:file].nil? or params[:role_id].nil? or params[:department_id].nil?
+                return redirect_to new_user_path, notice: "Please select a file role and department"
+            elsif params[:role_id] == '2' and (params[:batch_id].nil? or params[:regulation_id].nil?)
+                return redirect_to new_user_path, notice: "Please select a batch and regulation"
+            elsif params[:file].content_type != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                return redirect_to new_user_path, notice: "Please select a valid file"
             end
                 
             workbook = Creek::Book.new params[:file].path
@@ -170,7 +170,8 @@ class UsersController < ApplicationController
                     end
                 end
             end
-            send_data text_to_display, :filename => "#{DateTime.now().to_s}_user_log.txt" and return
+            UserMailer.with(email: current_user.email, text_to_display: text_to_display).user_creation_report.deliver_later
+            return redirect_to users_path, notice: "Users creation log sent to your email. #{current_user.email}"
         rescue => e
             Rails.logger.info "Error: #{e}"
             return redirect_to users_path, alert: "Error: #{e}"
