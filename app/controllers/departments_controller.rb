@@ -5,7 +5,7 @@ class DepartmentsController < ApplicationController
 
   # GET /departments or /departments.json
   def index
-    @departments = current_user.college.departments.order(id: :desc)
+    @departments = current_user.college.departments.order(id: :desc).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /departments/1 or /departments/1.json

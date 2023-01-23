@@ -25,5 +25,6 @@
     <% end %>
   </tbody>
   </table>
+  <%= will_paginate(@departments, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
   </div>
 </div>
