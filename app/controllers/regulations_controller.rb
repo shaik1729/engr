@@ -5,7 +5,7 @@ class RegulationsController < ApplicationController
 
   # GET /regulations or /regulations.json
   def index
-    @regulations = current_user.regulations.all
+    @regulations = current_user.college.regulations.order(id: :desc)
   end
 
   # GET /regulations/1 or /regulations/1.json
@@ -24,6 +24,12 @@ class RegulationsController < ApplicationController
   # POST /regulations or /regulations.json
   def create
     @regulation = Regulation.new(regulation_params)
+
+    @regulation.college_id = current_user.college_id
+
+    if Regulation.exists?(name: @regulation.name.upcase, code: @regulation.code.upcase, college_id: @regulation.college_id)
+      return redirect_to regulations_url, notice: "Regulation already exists."
+    end
 
     respond_to do |format|
       if @regulation.save
@@ -67,12 +73,12 @@ class RegulationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def regulation_params
-      params.require(:regulation).permit(:name, :code, :user_id, :college_id)
+      params.require(:regulation).permit(:name, :code)
     end
 
     def authorize_admin
       if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
-        return raise Unauthorized unless @regulation.user == current_user and current_user.is_admin?
+        return raise Unauthorized unless @regulation.college_id == current_user.college_id and current_user.is_admin?
       elsif ['new', 'create', 'index'].include?(params[:action])
         return raise Unauthorized unless current_user.is_admin?
       end

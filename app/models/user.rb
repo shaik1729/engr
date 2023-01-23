@@ -5,7 +5,6 @@ class User < ApplicationRecord
 
   belongs_to :college
   belongs_to :role
-  has_many :regulations
   has_many :results
   has_many :documents
   has_many :notifications

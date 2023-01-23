@@ -1,6 +1,4 @@
 class Regulation < ApplicationRecord
-    belongs_to :user
-
     has_many :subjects
     has_many :results
     has_many :documents
