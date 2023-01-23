@@ -31,6 +31,7 @@ class UsersController < ApplicationController
 
         respond_to do |format|
             if @user.save
+                UserMailer.with(name: @user.name, email: @user.email, password: @user.password).welcome_user.deliver_later
                 format.html { redirect_to users_path, notice: "User was successfully created." }
                 format.json { render :show, status: :created, location: @User }
             else
@@ -116,6 +117,7 @@ class UsersController < ApplicationController
 
                         if @user.save
                             text_to_display += "#{@user.reg_no} -> #{@user.password} created successfully. \n"
+                            UserMailer.with(name: @user.name, email: @user.email, password: password).welcome_user.deliver_later
                             Rails.logger.info "Student User created: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{row_cells[3]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]} #{params[:batch_id]} #{params[:regulation_id]} "
                         else
                             text_to_display += "#{row_cells[0]} creation failed. \n"
@@ -159,6 +161,7 @@ class UsersController < ApplicationController
                         
                         if @user.save
                             text_to_display += "#{@user.email} -> #{@user.password} created successfully. \n"
+                            UserMailer.with(name: @user.name, email: @user.email, password: password).welcome_user.deliver_later
                             Rails.logger.info "Faculty User created: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]}"
                         else
                             text_to_display += "#{row_cells[1]} creation failed. \n"
