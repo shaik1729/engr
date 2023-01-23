@@ -5,6 +5,11 @@ class NotificationsController < ApplicationController
 
   # GET /notifications or /notifications.json
   def index
+    @q = Notification.where(college_id: current_user.college_id).ransack(params[:q])
+    if !params[:q].nil?
+        @notifications = @q.result(distinct: true).order(id: :desc).paginate(page: params[:page], per_page: 20)
+        render 'search_results'
+    end
     @college_notifications = Notification.where('college_id = ? and by_admin = true', current_user.college_id).order(id: :desc).paginate(page: params[:page], per_page: 10)
     if current_user.is_faculty?
       @notifications = current_user.notifications.order(id: :desc).paginate(page: params[:page], per_page: 10)

@@ -2,6 +2,8 @@
   <%= link_to 'New Notification', new_notification_path, class: 'btn btn-primary' %>
 <% end %>
 
+<%= render 'notifications/search_form', q: @q %>
+
 <div class="card mt-3">
   <h5 class="card-header">Notifications</h5>
   <div class="card-body">
