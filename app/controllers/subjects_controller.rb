@@ -25,6 +25,12 @@ class SubjectsController < ApplicationController
   def create
     @subject = Subject.new(subject_params)
 
+    @subject.college_id = current_user.college_id
+
+    if Subject.exists?(name: @subject.name.upcase, code: @subject.code.upcase, regulation_id: @subject.regulation_id, college_id: @subject.college_id)
+      return redirect_to subjects_url, notice: "Subject already exists."
+    end
+
     respond_to do |format|
       if @subject.save
         format.html { redirect_to subjects_path, notice: "Subject was successfully created." }
@@ -67,11 +73,11 @@ class SubjectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def subject_params
-      params.require(:subject).permit(:name, :code, :regulation_id, :semester_id, :college_id)
+      params.require(:subject).permit(:name, :code, :regulation_id)
     end
 
     def authorize_admin
-      if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
+      if ['edit', 'update', 'destroy', 'show'].include?(params[:action]) and current_user.is_admin?
         return raise Unauthorized unless @subject.college_id == current_user.college_id
       elsif ['new', 'create', 'index'].include?(params[:action])
         return raise Unauthorized unless current_user.is_admin?
