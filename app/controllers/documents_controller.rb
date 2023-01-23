@@ -35,6 +35,9 @@ class DocumentsController < ApplicationController
   def create
     @document = Document.new(document_params)
 
+    @document.user_id = current_user.id
+    @document.college_id = current_user.college_id
+
     respond_to do |format|
       if @document.save
         format.html { redirect_to documents_path, notice: "Document was successfully created." }
@@ -77,7 +80,7 @@ class DocumentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def document_params
-      params.require(:document).permit(:title, :content, :user_id, :file, :department_id, :regulation_id, :subject_id, :semester_id, :college_id)
+      params.require(:document).permit(:title, :content, :file, :department_id, :regulation_id, :subject_id, :semester_id)
     end
 
     def authorize
