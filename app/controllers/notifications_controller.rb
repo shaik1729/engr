@@ -38,6 +38,9 @@ class NotificationsController < ApplicationController
   def create
     @notification = Notification.new(notification_params)
 
+    @notification.user_id = current_user.id
+    @notification.college_id = current_user.college_id
+
     if current_user.is_admin?
       @notification.by_admin = true
     end
@@ -84,7 +87,7 @@ class NotificationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def notification_params
-      params.require(:notification).permit(:title, :file, :user_id, :department_id, :regulation_id, :college_id, :batch_id)
+      params.require(:notification).permit(:title, :file, :department_id, :regulation_id, :batch_id)
     end
     
     def authorize
