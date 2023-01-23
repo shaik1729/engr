@@ -23,19 +23,19 @@
 
   <div class="field mt-2">
     <%= form.label :batch_id %>
-    <%= form.collection_select :batch_id, Batch.where(college_id: current_user.college.id), :id, :year, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    <%= form.collection_select :batch_id, current_user.college.batches, :id, :year, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
   </div>
 
   <div class="field mt-2">
     <%= form.label :regulation_id %>
-    <%= form.collection_select :regulation_id, Regulation.where(college_id: current_user.college.id), :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    <%= form.collection_select :regulation_id, current_user.college.regulations, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
   </div>
 
   <div class="field mt-2">
     <%= form.label :department_id %>
-    <%= form.collection_select :department_id, Department.where(college_id: current_user.college.id), :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    <%= form.collection_select :department_id, current_user.college.departments, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
   </div>
-  
+
   <div class="actions mt-2">
     <%= form.submit class: "btn btn-primary" %>
   </div>

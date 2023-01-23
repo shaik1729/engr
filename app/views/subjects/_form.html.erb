@@ -23,7 +23,7 @@
 
   <div class="field mt-2">
     <%= form.label :regulation_id, class: "form-label" %>
-    <%= form.collection_select :regulation_id, Regulation.where(college_id: current_user.college.id), :id, :code, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    <%= form.collection_select :regulation_id, current_user.college.regulations, :id, :code, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
   </div>
 
   <div class="actions mt-2">

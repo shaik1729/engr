@@ -1,9 +1,8 @@
 <table class="table table-responsive table-striped">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>Email</th>
             <th>Roll number</th>
+            <th>Name</th>
             <th>Mobile number</th>
             <th>Batch</th>
             <th>Regulation</th>
@@ -14,9 +13,8 @@
     <tbody>
         <% users.each do |user| %>
             <tr>
-            <td><%= user.name %></td>
-            <td><%= user.email %></td>
             <td><%= user.reg_no %></td>
+            <td><%= user.name %></td>
             <td><%= user.mobile_number %></td>
             <td><%= @batches[user.batch_id.to_i]&.first&.year %></td>
             <td><%= @regulations[user.regulation_id.to_i]&.first&.code %></td>
