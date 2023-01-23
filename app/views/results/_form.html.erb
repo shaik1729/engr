@@ -71,11 +71,6 @@
     <%= form.collection_select :department_id, Department.where(college_id: current_user.college.id), :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
   </div>
 
-  <div class="field d-none">
-    <%= form.label :college_id %>
-    <%= form.text_field :college_id, value: current_user.college.id %>
-  </div>
-
   <div class="actions mt-2">
     <%= form.submit class: 'btn btn-primary' %>
   </div>

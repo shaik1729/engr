@@ -52,6 +52,12 @@ class ResultsController < ApplicationController
   def create
     @result = Result.new(result_params)
 
+    @result.college_id = current_user.college_id
+
+    if Result.exists?(user_id: @result.user_id, semester_id: @result.semester_id, subject_id: @result.subject_id)
+      return redirect_to new_result_path, notice: "Result already exists"
+    end
+
     respond_to do |format|
       if @result.save
         format.html { redirect_to new_result_path, notice: "Result was successfully created." }
@@ -128,6 +134,12 @@ class ResultsController < ApplicationController
             next
           end
 
+          if Result.exists?(user_id: @student.id, subject_id: @subject.id, semester_id: params[:semester_id])
+            text_to_display += "#{arr_of_stu_record[index][0]} subject result already exists \n"
+            puts "#{arr_of_stu_record[0]} -> #{arr_of_stu_record[index]} subject result already exists"
+            next
+          end
+
           @result = Result.new(
             user_id: @student.id,
             subject_id: @subject.id,
@@ -169,7 +181,7 @@ class ResultsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def result_params
-      params.require(:result).permit(:internal_marks, :external_marks, :total_marks, :result, :credits, :grade, :subject_id, :regulation_id, :batch_id, :semester_id, :user_id, :college_id, :department_id)
+      params.require(:result).permit(:internal_marks, :external_marks, :total_marks, :result, :credits, :grade, :subject_id, :regulation_id, :batch_id, :semester_id, :user_id, :department_id)
     end
 
     def authorize

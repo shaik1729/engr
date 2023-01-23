@@ -5,12 +5,6 @@
     <%= form.collection_select :semester_id, Semester.all, :id, :sem, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
   </div>
 
-  
-  <div class="field d-none">
-    <%= form.label :college_id, class: 'form-field' %>
-    <%= form.text_field :college_id, value: current_user.college.id %>
-  </div>
-
   <div class="field mt-2">
     <%= form.label :file, class: 'form-field' %>
     <%= form.file_field :file, class: 'form-control' %>
