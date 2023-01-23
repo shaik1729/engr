@@ -77,8 +77,8 @@ class SubjectsController < ApplicationController
     end
 
     def authorize_admin
-      if ['edit', 'update', 'destroy', 'show'].include?(params[:action]) and current_user.is_admin?
-        return raise Unauthorized unless @subject.college_id == current_user.college_id
+      if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
+        return raise Unauthorized unless @subject.college_id == current_user.college_id and current_user.is_admin?
       elsif ['new', 'create', 'index'].include?(params[:action])
         return raise Unauthorized unless current_user.is_admin?
       end

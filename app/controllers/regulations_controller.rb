@@ -72,7 +72,7 @@ class RegulationsController < ApplicationController
 
     def authorize_admin
       if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
-        return raise Unauthorized unless @regulation.user == current_user
+        return raise Unauthorized unless @regulation.user == current_user and current_user.is_admin?
       elsif ['new', 'create', 'index'].include?(params[:action])
         return raise Unauthorized unless current_user.is_admin?
       end

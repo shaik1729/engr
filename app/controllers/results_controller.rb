@@ -174,7 +174,7 @@ class ResultsController < ApplicationController
 
     def authorize
       if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
-        return raise Unauthorized unless @result.college.id == current_user.college.id
+        return raise Unauthorized unless @result.college.id == current_user.college.id and current_user.is_admin?
       elsif ['new', 'create', 'import'].include?(params[:action])
         return raise Unauthorized unless current_user.is_admin?
       end
