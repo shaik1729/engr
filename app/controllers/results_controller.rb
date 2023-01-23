@@ -111,14 +111,14 @@ class ResultsController < ApplicationController
         
         if @student.nil?
           text_to_display += "Student with roll number #{student_record[0]} doesn't exist \n"
-          puts "Student with roll number #{student_record[0]} doesn't exist"
+          Rails.logger.info "Student with roll number #{student_record[0]} doesn't exist"
           next
         end
 
         arr_of_stu_record = student_record.to_a
 
         text_to_display += "Uploading result of : #{arr_of_stu_record[0][1]} \n"
-        puts "Uploading result of : #{arr_of_stu_record[0]}"
+        Rails.logger.info "Uploading result of : #{arr_of_stu_record[0]}"
         
         (1..arr_of_stu_record.length-1).step(6).each do |index| 
 
@@ -130,13 +130,13 @@ class ResultsController < ApplicationController
 
           if @subject.nil?
             text_to_display += "#{arr_of_stu_record[index][0]} subject doesn't exist \n"
-            puts "#{arr_of_stu_record[0]} -> #{arr_of_stu_record[index]} subject doesn't exist"
+            Rails.logger.info "#{arr_of_stu_record[index][0]} subject doesn't exist"
             next
           end
 
           if Result.exists?(user_id: @student.id, subject_id: @subject.id, semester_id: params[:semester_id])
             text_to_display += "#{arr_of_stu_record[index][0]} subject result already exists \n"
-            puts "#{arr_of_stu_record[0]} -> #{arr_of_stu_record[index]} subject result already exists"
+            Rails.logger.info "#{arr_of_stu_record[index][0]} subject result already exists"
             next
           end
 
@@ -158,16 +158,17 @@ class ResultsController < ApplicationController
 
           if @result.save
             text_to_display += "#{@subject.name} subject result Uploaded. \n"
-            puts "#{arr_of_stu_record[0]} -> #{arr_of_stu_record[index]} result Uploaded successfully."
+            Rails.logger.info "#{arr_of_stu_record[index][0]} subject result Uploaded successfully."
           else
             text_to_display += "#{@subject.name} subject result Upload failed. \n"
-            puts "#{arr_of_stu_record[0]} -> #{arr_of_stu_record[index]} result Upload failed."
+            Rails.logger.info "#{arr_of_stu_record[index][0]} subject result Upload failed."
           end
 
         end
       end
 
-      send_data text_to_display, :filename => "#{DateTime.now().to_s}_result_log.txt" and return
+      ResultMailer.with(email: current_user.email, text_to_display: text_to_display).result_creation_report.deliver_later
+      redirect_to root_path, notice: "Result upload log sent to your email. #{current_user.email}" and return
     rescue => e
       redirect_to root_path, notice: "Error occured while uploading result. \n #{e}" and return
     end
