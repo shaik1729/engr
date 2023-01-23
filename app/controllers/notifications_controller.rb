@@ -5,9 +5,9 @@ class NotificationsController < ApplicationController
 
   # GET /notifications or /notifications.json
   def index
-    @college_notifications = Notification.where('college_id = ? and by_admin = true', current_user.college_id).order(id: :desc)
+    @college_notifications = Notification.where('college_id = ? and by_admin = true', current_user.college_id).order(id: :desc).paginate(page: params[:page], per_page: 10)
     if current_user.is_faculty?
-      @notifications = current_user.notifications.order(id: :desc)
+      @notifications = current_user.notifications.order(id: :desc).paginate(page: params[:page], per_page: 10)
     elsif current_user.is_student?
       @notifications = Notification.where(
         'college_id = ? and 
@@ -17,7 +17,7 @@ class NotificationsController < ApplicationController
           by_admin = false', current_user.college_id, 
                               current_user.batch_id, 
                               current_user.department_id, 
-                              current_user.regulation_id).order(id: :desc)
+                              current_user.regulation_id).order(id: :desc).paginate(page: params[:page], per_page: 10)
     end
   end
 

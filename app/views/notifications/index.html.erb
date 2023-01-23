@@ -20,6 +20,7 @@
         <% end %>
       </tbody>
     </table>
+    <%= will_paginate(@college_notifications, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
   </div>
 </div>
 
@@ -44,6 +45,7 @@
           <% end %>
         </tbody>
       </table>
+      <%= will_paginate(@notifications, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
     </div>
   </div>
 
