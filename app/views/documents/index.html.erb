@@ -1,2 +1,3 @@
+<%= render 'documents/search_form', q: @q %>
 <%= render 'documents/faculty_index' if current_user.is_faculty? %>
 <%= render 'documents/student_index' if current_user.is_student? %>

@@ -1,0 +1,28 @@
+<%= render 'documents/search_form', q: @q %>
+<div class="card mt-3">
+    <h5 class="card-header">Search Results</h5>
+    <div class="card-body">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Subject</th>
+                <th scope="col-span-2">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% @documents.each do |document| %>
+            <tr>
+            <th scope="row">D<%= document.id %></th>
+            <td><%= document.title %></td>
+            <td><%= document.subject.name %></td>
+            <td><%= link_to 'Download', document.file, download:'' %></td>
+            <td><%= link_to 'Preview', document.file, preview:'', target:'_blank' %></td>
+            </tr>       
+        <% end %>
+        </tbody>
+    </table>
+    <%= will_paginate(@documents, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+    </div>
+</div>

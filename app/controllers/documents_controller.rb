@@ -5,6 +5,11 @@ class DocumentsController < ApplicationController
 
   # GET /documents or /documents.json
   def index
+    @q = Document.where(college_id: current_user.college_id).ransack(params[:q])
+    if !params[:q].nil?
+        @documents = @q.result(distinct: true).order(id: :desc).paginate(page: params[:page], per_page: 20)
+        render 'search_results'
+    end
     if current_user.is_faculty?
       @documents = current_user.documents.all.order("id DESC")
     else
