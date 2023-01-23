@@ -45,6 +45,7 @@ class DocumentsController < ApplicationController
 
     respond_to do |format|
       if @document.save
+        DocumentMailer.with(document: @document).added_document.deliver_later
         format.html { redirect_to documents_path, notice: "Document was successfully created." }
         format.json { render :show, status: :created, location: @document }
       else
