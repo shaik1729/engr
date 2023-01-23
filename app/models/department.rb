@@ -1,5 +1,4 @@
 class Department < ApplicationRecord
-    belongs_to :user
     before_save :upcase_fields
     
     has_many :documents
@@ -7,6 +6,11 @@ class Department < ApplicationRecord
     has_many :results
     
     belongs_to :college
+
+    validates :name, presence: true
+    validates :short_form, presence: true
+    validates :code, presence: true
+    validates :college_id, presence: true
 
     private
 

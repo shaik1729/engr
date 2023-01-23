@@ -5,7 +5,7 @@ class DepartmentsController < ApplicationController
 
   # GET /departments or /departments.json
   def index
-    @departments = current_user.departments.all
+    @departments = current_user.college.departments.order(id: :desc)
   end
 
   # GET /departments/1 or /departments/1.json
@@ -24,6 +24,12 @@ class DepartmentsController < ApplicationController
   # POST /departments or /departments.json
   def create
     @department = Department.new(department_params)
+
+    @department.college_id = current_user.college_id
+
+    if Department.exists?(name: @department.name.upcase, short_form: @department.short_form.upcase, college_id: @department.college_id)
+      return redirect_to departments_url, notice: "Department already exists."
+    end
 
     respond_to do |format|
       if @department.save
@@ -67,12 +73,12 @@ class DepartmentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def department_params
-      params.require(:department).permit(:name, :short_form, :code, :user_id, :college_id)
+      params.require(:department).permit(:name, :short_form, :code)
     end
 
     def authorize_admin
       if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
-        return raise Unauthorized unless @department.user == current_user
+        return raise Unauthorized unless @department.college_id == current_user.college_id and current_user.is_admin?
       elsif ['new', 'create', 'index'].include?(params[:action])
         return raise Unauthorized unless current_user.is_admin?
       end
