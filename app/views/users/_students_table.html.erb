@@ -16,9 +16,9 @@
             <td><%= user.reg_no %></td>
             <td><%= user.name %></td>
             <td><%= user.mobile_number %></td>
-            <td><%= @batches[user.batch_id.to_i]&.first&.year %></td>
-            <td><%= @regulations[user.regulation_id.to_i]&.first&.code %></td>
-            <td><%= @departments[user.department_id.to_i]&.first&.short_form %></td>
+            <td><%= user.batch.year %></td>
+            <td><%= user.regulation.code %></td>
+            <td><%= user.department.short_form %></td>
             <td><%= link_to 'Update', edit_user_path(user) %></td>
             <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
             </tr>

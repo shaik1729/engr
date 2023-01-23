@@ -4,18 +4,16 @@ class UsersController < ApplicationController
     before_action :authenticate_user!
     before_action :set_user, only: %i[ show edit update destroy ]
     before_action :authorize_admin
-
   
     def index
-        @role_wise_users = User.where('college_id = ?', current_user.college_id).sort_by(&:id).reverse.group_by(&:role_id).to_h
-        @roles = {
-            '1' => 'Admin',
-            '2' => 'Student',
-            '3' => 'Faculty'
-        }
-        @batches = Batch.where('college_id = ?', current_user.college_id).group_by(&:id).to_h
-        @regulations = Regulation.where('college_id = ?', current_user.college_id).group_by(&:id).to_h
-        @departments = Department.where('college_id = ?', current_user.college_id).group_by(&:id).to_h
+        @q = User.where(college_id: current_user.college_id).ransack(params[:q])
+        if !params[:q].nil?
+            @users = @q.result(distinct: true).paginate(page: params[:page], per_page: 20)
+            render 'search_results'
+        end
+        @students = User.where('college_id = ? AND role_id = ?', current_user.college_id, 2).order(id: :desc).paginate(page: params[:page], per_page: 20)
+        @faculties = User.where('college_id = ? AND role_id = ?', current_user.college_id, 3).order(id: :desc).paginate(page: params[:page], per_page: 10)
+        @admins = User.where('college_id = ? AND role_id = ?', current_user.college_id, 1).order(id: :desc).paginate(page: params[:page], per_page: 10)
     end
 
     def show

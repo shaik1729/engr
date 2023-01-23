@@ -1,17 +1,31 @@
 
 <%= link_to 'New User', new_user_path, class: "btn btn-primary mt-3" %>
 
-<% @role_wise_users.each do |role_id, users| %>
-  <div class="card mt-3">
-    <h5 class="card-header"><%= @roles[role_id] %> List</h5>
-    <div class="card-body">
-      <% if role_id == '1' %>
-        <%= render 'users/admins_table', users: users %>
-      <% elsif role_id == '2' %>
-        <%= render 'users/students_table', users: users %>
-      <% elsif role_id == '3' %>
-        <%= render 'users/faculties_table', users: users %>
-      <% end %>
-    </div>
+<%= render 'users/search_form', q: @q %>
+
+<div class="card mt-2">
+  <h5 class="card-header">Admins</h5>
+  <div class="card-body">
+    <%= render 'users/admins_table', users: @admins %>
+    <%= will_paginate(@admins, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
   </div>
-<% end %>
+</div>
+
+
+<div class="card mt-2">
+  <h5 class="card-header">Faculty</h5>
+  <div class="card-body">
+  <%= render 'users/faculties_table', users: @faculties %>
+  <%= will_paginate(@faculties, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+  </div>
+</div>
+
+
+<div class="card mt-2">
+  <h5 class="card-header">Students</h5>
+  <div class="card-body">
+  <%= render 'users/students_table', users: @students %>
+  <%= will_paginate(@students, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+  </div>
+</div>
+

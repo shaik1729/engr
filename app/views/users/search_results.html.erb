@@ -1,0 +1,31 @@
+<%= render 'users/search_form', q: @q %>
+
+<div class="card mt-2">
+  <h5 class="card-header">Search Results</h5>
+  <div class="card-body">
+    <table class="table table-responsive table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Reg no</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @users.each do |user| %>
+                <tr>
+                <td><%= user.name %></td>
+                <td><%= user.reg_no %></td>
+                <td><%= user.email %></td>
+                <td><%= user.role.code %></td>
+                <td><%= link_to 'Update', edit_user_path(user) %></td>
+                <td><%= link_to 'Delete', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                </tr>
+            <% end %>
+        </tbody>
+    </table>
+    <%= will_paginate(@users, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>
+  </div>
+</div>
