@@ -5,9 +5,9 @@ class User < ApplicationRecord
 
   belongs_to :college
   belongs_to :role
-  belongs_to :batch
+  belongs_to :batch, optional: true
   belongs_to :department
-  belongs_to :regulation
+  belongs_to :regulation, optional: true
   
   has_many :results
   has_many :documents
@@ -18,6 +18,8 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 }, uniqueness: { case_sensitive: false }
   validates :role_id, presence: true
   validates :college_id, presence: true
+  validates :mobile_number, presence: true, length: { is: 10 }, numericality: { only_integer: true }
+  validates :department_id, presence: true
   
   def is_admin?
     self.role.code == "ADMIN"
