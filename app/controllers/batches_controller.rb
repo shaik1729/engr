@@ -5,7 +5,7 @@ class BatchesController < ApplicationController
 
   # GET /batches or /batches.json
   def index
-    @batches = current_user.college.batches.order(id: :desc)
+    @batches = current_user.college.batches.order(id: :desc).paginate(page: params[:page], per_page: 10)
   end
 
   # GET /batches/1 or /batches/1.json
