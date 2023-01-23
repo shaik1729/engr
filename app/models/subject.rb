@@ -1,5 +1,4 @@
 class Subject < ApplicationRecord
-    belongs_to :semester
     belongs_to :regulation
     belongs_to :college
 
@@ -12,7 +11,6 @@ class Subject < ApplicationRecord
     validates :name, presence: true
     validates :code, presence: true
     validates :regulation_id, presence: true
-    validates :semester_id, presence: true
     validates :college_id, presence: true
 
     def subject_name

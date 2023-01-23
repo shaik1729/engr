@@ -25,12 +25,7 @@
     <%= form.label :regulation_id, class: "form-label" %>
     <%= form.collection_select :regulation_id, current_user.regulations.all, :id, :code, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
   </div>
-
-  <div class="field mt-2">
-    <%= form.label :semester_id %>
-    <%= form.collection_select :semester_id, Semester.all, :id, :sem, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
-  </div>
-
+  
   <div class="field d-none">
     <%= form.label :college_id %>
     <%= form.text_field :college_id, value: current_user.college_id %>
