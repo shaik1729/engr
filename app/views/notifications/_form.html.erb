@@ -18,7 +18,7 @@
   
   <div class="field mt-2">
     <%= form.label :file, class: "form-label" %>
-    <%= form.file_field :file, class: "form-control" %>
+    <%= form.file_field :file, direct_upload: true, accept: 'application/pdf, application/zip', class: "form-control" %>
   </div>
 
   <div class="field mt-2">
