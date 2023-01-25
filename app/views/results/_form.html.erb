@@ -13,12 +13,12 @@
 
   <div class="field mt-2">
     <%= form.label :student_roll_number, class: "form-field" %>
-    <%= form.collection_select :user_id, User.where('college_id = ? and role_id = 2', current_user.college.id), :id, :reg_no, {:include_blank => ' -- Select -- '}, {:class => 'form-control', :id => 'studentSelectElement'} %>
+    <%= form.collection_select :user_id, User.where('college_id = ? and role_id = 2', current_user.college.id), :id, :reg_no, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
   </div>
 
   <div class="field mt-2">
     <%= form.label :subject_id, class: "form-field" %>
-    <%= form.collection_select :subject_id, current_user.college.subjects.all, :id, :subject_name, {:include_blank => ' -- Select -- '}, {:class => 'form-control', :id => 'subjectSelectElement'} %>
+    <%= form.collection_select :subject_id, current_user.college.subjects.all, :id, :subject_name, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
   </div>
 
   <div class="field mt-2">
@@ -53,22 +53,22 @@
 
   <div class="field mt-2">
     <%= form.label :regulation_id, class: "form-field" %>
-    <%= form.collection_select :regulation_id, current_user.college.regulations, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control', :id => 'regulationSelectElement'} %>
+    <%= form.collection_select :regulation_id, current_user.college.regulations, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
   </div>
 
   <div class="field mt-2">
     <%= form.label :batch_id, class: "form-field" %>
-    <%= form.collection_select :batch_id, current_user.college.batches, :id, :year, {:include_blank => ' -- Select -- '}, {:class => 'form-control', :id => 'batchSelectElement'} %>
+    <%= form.collection_select :batch_id, current_user.college.batches, :id, :year, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
   </div>
 
   <div class="field mt-2">
     <%= form.label :semester_id, class: "form-field" %>
-    <%= form.collection_select :semester_id, Semester.all, :id, :sem, {:include_blank => ' -- Select -- '}, {:class => 'form-control', :id => 'semesterSelectElement2'} %>
+    <%= form.collection_select :semester_id, Semester.all, :id, :sem, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
   </div>
 
   <div class="field mt-2">
     <%= form.label :department_id, class: "form-field" %>
-    <%= form.collection_select :department_id, current_user.college.departments, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control', :id => 'departmentSelectElement'} %>
+    <%= form.collection_select :department_id, current_user.college.departments, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
   </div>
 
   <div class="actions mt-2">
