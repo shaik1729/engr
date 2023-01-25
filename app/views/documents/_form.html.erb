@@ -23,22 +23,22 @@
 
   <div class="field mt-3">
     <%= form.label :department_id, class: "form-label" %>
-    <%= form.collection_select :department_id, current_user.college.departments, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    <%= form.collection_select :department_id, current_user.college.departments, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control', :id => 'departmentSelectElement'} %>
   </div>
 
   <div class="field mt-3">
     <%= form.label :regulation_id, class: "form-label" %>
-    <%= form.collection_select :regulation_id, current_user.college.regulations, :id, :code, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    <%= form.collection_select :regulation_id, current_user.college.regulations, :id, :code, {:include_blank => ' -- Select -- '}, {:class => 'form-control', :id => 'regulationSelectElement'} %>
   </div>
 
   <div class="field mt-3">
     <%= form.label :semester_id, class: "form-label" %>
-    <%= form.collection_select :semester_id, Semester.all, :id, :sem, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    <%= form.collection_select :semester_id, Semester.all, :id, :sem, {:include_blank => ' -- Select -- '}, {:class => 'form-control', :id => 'semesterSelectElement'} %>
   </div>
 
   <div class="field mt-3">
     <%= form.label :subject_id, class: "form-label" %>
-    <%= form.collection_select :subject_id, current_user.college.subjects, :id, :subject_name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
+    <%= form.collection_select :subject_id, current_user.college.subjects, :id, :subject_name, {:include_blank => ' -- Select -- '}, {:class => 'form-control', :id => 'subjectSelectElement'} %>
   </div>
 
   <div class="field mt-3">
