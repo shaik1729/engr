@@ -20,7 +20,18 @@ class Document < ApplicationRecord
     validates :user_id, presence: true
     validates :file, presence: true
 
+    validate :validate_document
+
     private
+
+    def validate_document
+        if file.attached? && !file.content_type.in?(%w(application/zip application/pdf))
+          errors.add(:file, 'Must be a PDF or a ZIP file')
+        end
+        if file.attached? && file.blob.byte_size > 5.megabytes
+          errors.add(:file, 'Must be less than 5MB in size')
+        end
+    end
 
     def upcase_fields
         self.title = self.title.upcase
