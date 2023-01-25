@@ -14,4 +14,16 @@ ActiveAdmin.register User do
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
   #   permitted
   # end  
+
+  form do |f|
+    f.inputs do
+      f.input :college
+      f.input :role
+      f.input :email
+      f.input :mobile_number
+      f.input :password
+      f.input :password_confirmation
+    end
+    f.actions
+  end
 end
