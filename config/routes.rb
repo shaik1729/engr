@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
   resources :results, except: [:show] do
-    collection { post :import }
+    collection do
+      post :import
+      get :analysis
+    end  
   end
   resources :subjects, except: [:show]
   resources :notifications, only: [:index, :new, :create]

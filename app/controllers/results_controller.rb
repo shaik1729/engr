@@ -173,6 +173,10 @@ class ResultsController < ApplicationController
       redirect_to root_path, notice: "Error occured while uploading result. \n #{e}" and return
     end
   end
+  
+  def analysis
+    @subject_wise_analysis = Result.where('college_id = ? and batch_id = ? and semester_id = ? and department_id = ?',current_user.college_id, params[:batch_id], params[:semester_id], params[:department_id]).group_by(&:subject_id).to_h
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -188,7 +192,7 @@ class ResultsController < ApplicationController
     def authorize
       if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
         return raise Unauthorized unless @result.college.id == current_user.college.id and current_user.is_admin?
-      elsif ['new', 'create', 'import'].include?(params[:action])
+      elsif ['new', 'create', 'import', 'analysis'].include?(params[:action])
         return raise Unauthorized unless current_user.is_admin?
       end
     end

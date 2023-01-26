@@ -1,0 +1,54 @@
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">Analysis Results</h5>
+        <%= form_tag analysis_results_path, :method => 'get' do %>
+            <div class="row d-flex">
+                <div class="col-lg-3 field mt-2">
+                    <%= collection_select(nil, :batch_id, current_user.college.batches, :id, :year, {:include_blank => ' -- Select Batch -- '}, {:class => 'form-control slim-select'}) %>
+                </div>
+            
+                <div class="col-lg-3 field mt-2">
+                    <%= collection_select(nil, :semester_id, Semester.all, :id, :sem, {:include_blank => ' -- Select Semester -- '}, {:class => 'form-control slim-select'}) %>
+                </div>
+            
+                <div class="col-lg-5 field mt-2">
+                    <%= collection_select(nil, :department_id, current_user.college.departments, :id, :name, {:include_blank => ' -- Select Department -- '}, {:class => 'form-control slim-select'}) %>
+                </div>
+        
+                <div class="col-lg-1 actions mt-2">
+                    <%= submit_tag 'Apply', class: 'btn btn-primary w-100' %>
+                </div>
+            </div>
+        <% end %>
+    </div>
+</div>
+
+
+
+<% @subject_wise_analysis.each do |subject_id, results| %>
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title"><%= Subject.find(subject_id).name %></h5>
+            <div class="row">
+                <div class="col-lg-6">
+                    <%= pie_chart get_precentage_hash(results) %>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mt-2">
+                        <div class="card-body">
+                            <h5 class="card-title">Failed Candidates List</h5>
+                            <div class="row">
+                                <% get_failed_students(results).each do |student| %>
+                                    <div class="col col-lg-3">
+                                        <p class="card-text"><%= student %></p>
+                                    </div>
+                                <% end %>
+                            </div>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<% end %>
+
