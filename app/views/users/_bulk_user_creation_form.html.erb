@@ -16,7 +16,7 @@
 
     <div class="field mt-2">
         <%= form.label :regulation_id %>
-        <%= form.collection_select :regulation_id, current_user.college.regulations.all, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
+        <%= form.collection_select :regulation_id, current_user.college.regulations.all, :id, :code, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
     </div>
 
     <div class="field mt-2">
