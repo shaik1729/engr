@@ -13,7 +13,7 @@
 
 
 <div class="card mt-2">
-  <h5 class="card-header">Faculty</h5>
+  <h5 class="card-header">Staff</h5>
   <div class="card-body">
   <%= render 'users/faculties_table', users: @faculties %>
   <%= will_paginate(@faculties, :renderer => WillPaginate::ActionView::Bootstrap4LinkRenderer) %>

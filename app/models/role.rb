@@ -10,8 +10,8 @@ class Role < ApplicationRecord
         self.code == "ADMIN"
     end
 
-    def is_faculty?
-        self.code == "FAC"
+    def is_staff?
+        self.code == "STAFF"
     end
 
     def is_student?

@@ -8,8 +8,8 @@
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 Role.create!(name: 'Administrator', code: 'ADMIN')
+Role.create!(name: 'Staff', code: 'STAFF')
 Role.create!(name: 'Student', code: 'STU')
-Role.create!(name: 'Faculty', code: 'FAC')
 
 # College.create!(name: 'College of Engineering', short_form: 'COE', code: 'COE')
 

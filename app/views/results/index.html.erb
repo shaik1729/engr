@@ -5,7 +5,7 @@
 
 <% @semester_wise_results.each do |semester_id, results| %>
   <div class="card mt-3">
-    <h5 class="card-header"><%= @semesters[semester_id] %></h5>
+    <h5 class="card-header"><%= @semesters[semester_id].first.sem %></h5>
     <div class="card-body">
       <%= render 'results/results_table', results: results %>
     </div>

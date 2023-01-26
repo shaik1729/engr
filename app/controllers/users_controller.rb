@@ -11,8 +11,8 @@ class UsersController < ApplicationController
             @users = @q.result(distinct: true).paginate(page: params[:page], per_page: 20)
             render 'search_results'
         end
-        @students = User.where('college_id = ? AND role_id = ?', current_user.college_id, 2).order(id: :desc).paginate(page: params[:page], per_page: 20)
-        @faculties = User.where('college_id = ? AND role_id = ?', current_user.college_id, 3).order(id: :desc).paginate(page: params[:page], per_page: 10)
+        @students = User.where('college_id = ? AND role_id = ?', current_user.college_id, 3).order(id: :desc).paginate(page: params[:page], per_page: 20)
+        @faculties = User.where('college_id = ? AND role_id = ?', current_user.college_id, 2).order(id: :desc).paginate(page: params[:page], per_page: 10)
         @admins = User.where('college_id = ? AND role_id = ?', current_user.college_id, 1).order(id: :desc).paginate(page: params[:page], per_page: 10)
     end
 
@@ -78,7 +78,7 @@ class UsersController < ApplicationController
 
             text_to_display = ''
 
-            if params[:role_id] == '2'
+            if Role.find(params[:role_id]).is_student?
 
                 worksheets.each do |worksheet|
                     worksheet.rows.each do |row|
@@ -162,10 +162,10 @@ class UsersController < ApplicationController
                         if @user.save
                             text_to_display += "#{@user.email} -> #{@user.password} created successfully. \n"
                             UserMailer.with(name: @user.name, email: @user.email, password: password).welcome_user.deliver_later
-                            Rails.logger.info "Faculty User created: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]}"
+                            Rails.logger.info "Staff User created: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]}"
                         else
                             text_to_display += "#{row_cells[1]} creation failed. \n"
-                            Rails.logger.info "Faculty User creation failed: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]}"
+                            Rails.logger.info "Staff User creation failed: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]}"
                         end
                     end
                 end

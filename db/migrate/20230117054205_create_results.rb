@@ -7,12 +7,12 @@ class CreateResults < ActiveRecord::Migration[6.1]
       t.string :result
       t.string :credits
       t.string :grade
-      t.string :subject_id
-      t.string :regulation_id
-      t.string :batch_id
-      t.string :semester_id
-      t.string :user_id
-      t.string :college_id
+      t.integer :subject_id
+      t.integer :regulation_id
+      t.integer :batch_id
+      t.integer :semester_id
+      t.integer :user_id
+      t.integer :college_id
 
       t.timestamps
     end

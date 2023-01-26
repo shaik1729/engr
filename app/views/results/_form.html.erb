@@ -13,7 +13,7 @@
 
   <div class="field mt-2">
     <%= form.label :student_roll_number, class: "form-field" %>
-    <%= form.collection_select :user_id, User.where('college_id = ? and role_id = 2', current_user.college.id), :id, :reg_no, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
+    <%= form.collection_select :user_id, User.where('college_id = ? and role_id = 3', current_user.college.id), :id, :reg_no, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
   </div>
 
   <div class="field mt-2">

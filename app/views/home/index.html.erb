@@ -1,7 +1,7 @@
 <% if user_signed_in? && current_user.is_admin? %>
     <%= render 'home/admin_dashboard' %>
-<% elsif user_signed_in? && current_user.is_faculty? %>
-    <%= render 'home/faculty_dashboard' %>
+<% elsif user_signed_in? && current_user.is_staff? %>
+    <%= render 'home/staff_dashboard' %>
 <% elsif user_signed_in? && current_user.is_student? %>
     <%= render 'home/student_dashboard' %>
 <% else %>

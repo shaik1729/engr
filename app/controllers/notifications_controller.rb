@@ -11,7 +11,7 @@ class NotificationsController < ApplicationController
         render 'search_results'
     end
     @college_notifications = Notification.where('college_id = ? and by_admin = true', current_user.college_id).order(id: :desc).paginate(page: params[:page], per_page: 10)
-    if current_user.is_faculty?
+    if current_user.is_staff?
       @notifications = current_user.notifications.order(id: :desc).paginate(page: params[:page], per_page: 10)
     elsif current_user.is_student?
       @notifications = Notification.where(

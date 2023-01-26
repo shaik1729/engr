@@ -23,16 +23,7 @@ class ResultsController < ApplicationController
         @semester_wise_results = {}
       end
     end
-    @semesters = {
-      '1' => 'First Semester',
-      '2' => 'Second Semester',
-      '3' => 'Third Semester',
-      '4' => 'Fourth Semester',
-      '5' => 'Fifth Semester',
-      '6' => 'Sixth Semester',
-      '7' => 'Seventh Semester',
-      '8' => 'Eighth Semester'
-    }
+    @semesters = Semester.all.group_by(&:id).to_h
   end
 
   # GET /results/1 or /results/1.json

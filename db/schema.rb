@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2023_01_23_041925) do
     t.string "year"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "college_id"
+    t.integer "college_id"
   end
 
   create_table "colleges", force: :cascade do |t|
@@ -87,25 +87,25 @@ ActiveRecord::Schema.define(version: 2023_01_23_041925) do
     t.string "code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "college_id"
+    t.integer "college_id"
   end
 
   create_table "documents", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.string "user_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "department_id"
-    t.string "regulation_id"
-    t.string "subject_id"
-    t.string "college_id"
-    t.string "semester_id"
+    t.integer "department_id"
+    t.integer "regulation_id"
+    t.integer "subject_id"
+    t.integer "college_id"
+    t.integer "semester_id"
   end
 
   create_table "notifications", force: :cascade do |t|
     t.string "title"
-    t.string "user_id"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "college_id"
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2023_01_23_041925) do
     t.string "code"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "college_id"
+    t.integer "college_id"
   end
 
   create_table "results", force: :cascade do |t|
@@ -130,12 +130,12 @@ ActiveRecord::Schema.define(version: 2023_01_23_041925) do
     t.string "result"
     t.string "credits"
     t.string "grade"
-    t.string "subject_id"
-    t.string "regulation_id"
-    t.string "batch_id"
-    t.string "semester_id"
-    t.string "user_id"
-    t.string "college_id"
+    t.integer "subject_id"
+    t.integer "regulation_id"
+    t.integer "batch_id"
+    t.integer "semester_id"
+    t.integer "user_id"
+    t.integer "college_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "department_id"
@@ -157,8 +157,8 @@ ActiveRecord::Schema.define(version: 2023_01_23_041925) do
   create_table "subjects", force: :cascade do |t|
     t.string "name"
     t.string "code"
-    t.string "regulation_id"
-    t.string "college_id"
+    t.integer "regulation_id"
+    t.integer "college_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -171,14 +171,14 @@ ActiveRecord::Schema.define(version: 2023_01_23_041925) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "college_id"
-    t.string "role_id"
+    t.integer "college_id"
+    t.integer "role_id"
     t.string "name"
     t.string "reg_no"
     t.string "mobile_number"
-    t.string "batch_id"
-    t.string "department_id"
-    t.string "regulation_id"
+    t.integer "batch_id"
+    t.integer "department_id"
+    t.integer "regulation_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
