@@ -12,6 +12,7 @@ class ResultsController < ApplicationController
         if @semester_wise_results.empty?
           redirect_to results_path, notice: "Roll number doesn't have any resutls yet"
         end
+        @total_credits = @semester_wise_results.values.flatten.sum(&:credits)
       else
         redirect_to results_path, notice: "Roll number doesn't exist"
       end

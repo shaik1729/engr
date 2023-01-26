@@ -3,6 +3,19 @@
   <%= submit_tag "Search Results", class: "btn btn-outline-success", :name => nil %>
 <% end %>
 
+<% if !@semester_wise_results.empty? %>
+  <div class="card mt-2" style="width: 100%;">
+    <div class="card-body">
+      <h5 class="card-title">Reg No : <%= @student.reg_no %></h5>
+      <h6 class="card-subtitle mb-2 text-muted">Name : <%= @student.name %></h6>
+      <p class="card-text">Email : <%= @student.email %></p>
+      <p class="card-text">Department : <%= @student.department.name %></p>
+      <p class="card-text">Mobile Number : <%= @student.mobile_number %></p>
+      <p class="card-text">Total Credites : <%= @total_credits %></p>
+    </div>
+  </div>
+<% end %>
+
 <% @semester_wise_results.each do |semester_id, results| %>
   <div class="card mt-3">
     <h5 class="card-header"><%= @semesters[semester_id].first.sem %></h5>
