@@ -19,11 +19,6 @@
         <%= form.collection_select :regulation_id, current_user.college.regulations.all, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>
     </div>
 
-    <div class="field d-none">
-        <%= form.label :college_id %>
-        <%= form.text_field :college_id, value: current_user.college_id %>
-    </div>
-
     <div class="field mt-2">
         <%= form.label :file, class: "form-label" %>
         <%= form.file_field :file, class: "form-control" %>

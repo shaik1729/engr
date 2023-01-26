@@ -35,11 +35,6 @@
     <%= form.collection_select :role_id, Role.all, :id, :name, {:include_blank => ' -- Select -- '}, {:class => 'form-control'} %>
   </div>
 
-  <div class="field d-none">
-    <%= form.label :college_id %>
-    <%= form.text_field :college_id, value: current_user.college_id %>
-  </div>
-
   <div class="field mt-2">
     <%= form.label :batch_id %>
     <%= form.collection_select :batch_id, current_user.college.batches, :id, :year, {:include_blank => ' -- Select -- '}, {:class => 'form-control slim-select'} %>

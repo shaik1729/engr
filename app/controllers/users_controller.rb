@@ -110,7 +110,7 @@ class UsersController < ApplicationController
                             password: password, 
                             password_confirmation: password, 
                             role_id: params[:role_id], 
-                            college_id: params[:college_id], 
+                            college_id: current_user.college_id, 
                             department_id: params[:department_id], 
                             batch_id: params[:batch_id], 
                             regulation_id: params[:regulation_id])
@@ -118,10 +118,10 @@ class UsersController < ApplicationController
                         if @user.save
                             text_to_display += "#{@user.reg_no} -> #{@user.password} created successfully. \n"
                             UserMailer.with(name: @user.name, email: @user.email, password: password).welcome_user.deliver_later
-                            Rails.logger.info "Student User created: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{row_cells[3]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]} #{params[:batch_id]} #{params[:regulation_id]} "
+                            Rails.logger.info "Student User created: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{row_cells[3]} #{password} #{params[:role_id]} #{current_user.college_id} #{params[:department_id]} #{params[:batch_id]} #{params[:regulation_id]} "
                         else
                             text_to_display += "#{row_cells[0]} creation failed. \n"
-                            Rails.logger.info "Student User creation failed: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{row_cells[3]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]} #{params[:batch_id]} #{params[:regulation_id]} "
+                            Rails.logger.info "Student User creation failed: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{row_cells[3]} #{password} #{params[:role_id]} #{current_user.college_id} #{params[:department_id]} #{params[:batch_id]} #{params[:regulation_id]} "
                         end
                 
                     end
@@ -156,16 +156,16 @@ class UsersController < ApplicationController
                             password: password, 
                             password_confirmation: password, 
                             role_id: params[:role_id], 
-                            college_id: params[:college_id], 
+                            college_id: current_user.college_id, 
                             department_id: params[:department_id])
                         
                         if @user.save
                             text_to_display += "#{@user.email} -> #{@user.password} created successfully. \n"
                             UserMailer.with(name: @user.name, email: @user.email, password: password).welcome_user.deliver_later
-                            Rails.logger.info "Staff User created: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]}"
+                            Rails.logger.info "Staff User created: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{password} #{params[:role_id]} #{current_user.college_id} #{params[:department_id]}"
                         else
                             text_to_display += "#{row_cells[1]} creation failed. \n"
-                            Rails.logger.info "Staff User creation failed: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{password} #{params[:role_id]} #{params[:college_id]} #{params[:department_id]}"
+                            Rails.logger.info "Staff User creation failed: #{row_cells[0]} #{row_cells[1]} #{row_cells[2]} #{password} #{params[:role_id]} #{current_user.college_id} #{params[:department_id]}"
                         end
                     end
                 end
@@ -186,7 +186,7 @@ class UsersController < ApplicationController
     end
 
     def user_params
-        params.require(:user).permit(:email, :password, :password_confirmation, :role_id, :college_id, :name, :reg_no, :mobile_number, :batch_id, :regulation_id, :department_id)
+        params.require(:user).permit(:email, :password, :password_confirmation, :role_id, :name, :reg_no, :mobile_number, :batch_id, :regulation_id, :department_id)
     end
   
     def authorize_admin
