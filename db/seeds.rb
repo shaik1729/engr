@@ -5,7 +5,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
 Role.create!(name: 'Administrator', code: 'ADMIN')
 Role.create!(name: 'Staff', code: 'STAFF')
@@ -21,3 +20,5 @@ Semester.create!(sem: 'SEMESTER 5')
 Semester.create!(sem: 'SEMESTER 6')
 Semester.create!(sem: 'SEMESTER 7')
 Semester.create!(sem: 'SEMESTER 8')
+
+AdminUser.create!(email: Rails.application.credentials.admin[:EMAIL], password: Rails.application.credentials.admin[:PASSWORD], password_confirmation: Rails.application.credentials.admin[:PASSWORD])
