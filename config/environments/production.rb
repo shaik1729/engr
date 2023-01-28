@@ -118,3 +118,11 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end
+
+
+Rails.application.config.middleware.use ExceptionNotification::Rack,
+  email: {
+    email_prefix: 'Something went wrong!',
+    sender_address: %{"notifier" <apnacollege.co.in@gmail.com>},
+    exception_recipients: %w{stajuddinsha@gmail.com}
+  }

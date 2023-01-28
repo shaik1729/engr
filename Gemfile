@@ -67,3 +67,4 @@ gem 'ransack'
 
 gem "letter_opener", group: :development
 gem 'chartkick'
+gem "exception_notification", "~> 4.5"
