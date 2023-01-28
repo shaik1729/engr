@@ -29,6 +29,8 @@ class UsersController < ApplicationController
     def create
         @user = User.new(user_params)
 
+        @user.college_id = current_user.college_id
+
         respond_to do |format|
             if @user.save
                 UserMailer.with(name: @user.name, email: @user.email, password: @user.password).welcome_user.deliver_later
