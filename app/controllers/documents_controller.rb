@@ -10,7 +10,7 @@ class DocumentsController < ApplicationController
         @documents = @q.result(distinct: true).order(id: :desc).paginate(page: params[:page], per_page: 20)
         render 'search_results'
     end
-    if current_user.is_staff?
+    if !current_user.is_student?
       @documents = current_user.documents.all.order("id DESC")
     else
       @sem_wise_documents = Document.where(
@@ -93,7 +93,7 @@ class DocumentsController < ApplicationController
       if ['edit', 'update', 'destroy', 'show'].include?(params[:action])
         return raise Unauthorized unless @document.user.id == current_user.id
       elsif ['new', 'create'].include?(params[:action])
-        return raise Unauthorized unless current_user.is_staff?
+        return raise Unauthorized unless !current_user.is_student?
       end
     end
 end
