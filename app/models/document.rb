@@ -29,7 +29,7 @@ class Document < ApplicationRecord
           errors.add(:file, 'Must be a PDF or a ZIP file')
         end
         if file.attached? && file.blob.byte_size > 5.megabytes
-          errors.add(:file, 'Must be less than 5MB in size')
+          errors.add(:file, 'Must be less than 5MB in size visit https://www.ilovepdf.com/compress_pdf to compress your file')
         end
     end
 
