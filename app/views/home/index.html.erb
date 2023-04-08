@@ -5,34 +5,19 @@
 <% elsif user_signed_in? && current_user.is_student? %>
     <%= render 'home/student_dashboard' %>
 <% else %>
-<div class="row d-flex justify-content-around">
-  <div class="card mb-3">
-    <div class="row g-0">
-      <div class="col">
-        <div class="card-body">
-          <div class="row d-flex justify-content-center">
-            <div class="card text-bg-secondary m-2" style="width: 18rem;">
-            <div class="card-header">Documents</div>
-            <div class="card-body">
-              <%= "Associated Documents : #{@documents}" %>
-            </div>
-          </div>
-          <div class="card text-bg-success m-2" style="width: 18rem;">
-            <div class="card-header">Users</div>
-            <div class="card-body">
-              <%= "Associated Users : #{@users}" %>
-            </div>
-          </div>
-          <div class="card text-bg-warning m-2" style="width: 18rem;">
-            <div class="card-header">Colleges</div>
-            <div class="card-body">
-              <%= "Associated Colleges : #{@colleges}" %>
-            </div>
-          </div>
-        </div>
-        <%= link_to 'Log In', new_user_session_path, class: "btn btn-primary w-100" %>
+  <div class="row">
+    <div class="col">
+      <div class="index-card text-center">
+          Welcome To ApnaCollege
+          <br>
+          Connect, Learn, and Grow - Together with ApnaCollege Community. 
+          <br>
+          <br>
+          Write an Email to apnacollege.co.in@gmail.com to get your college registered.
+          <br>
+          Our team will get back to you within 24 hours.
       </div>
     </div>
   </div>
-</div>
+
 <% end %>
