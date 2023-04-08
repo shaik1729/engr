@@ -3,7 +3,7 @@ class UserMailer < ApplicationMailer
         @name = params[:name]
         @email = params[:email]
         @password = params[:password]
-        mail(to: @email, subject: "Your Account for ApnaCollege.co.in has been created successfully!!")
+        mail(to: @email, subject: "Your Account for apnacollege.co.in has been created successfully!!")
     end
 
     def user_creation_report
