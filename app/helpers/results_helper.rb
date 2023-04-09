@@ -15,4 +15,14 @@ module ResultsHelper
         end
         failed_students
     end
+
+    def get_total_credits(semester_wise_results)
+        total_credits = 0
+        semester_wise_results.each do |semester_id, results|
+            results.each do |result|
+                total_credits += result.credits.to_i
+            end
+        end
+        total_credits
+    end
 end

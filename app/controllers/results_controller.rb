@@ -1,4 +1,5 @@
 class ResultsController < ApplicationController
+  include ResultsHelper
   before_action :authenticate_user!
   before_action :set_result, only: %i[ show edit update destroy ]
   before_action :authorize, except: %i[ index ]
@@ -6,13 +7,13 @@ class ResultsController < ApplicationController
   # GET /results or /results.json
   def index
     if params[:search].present?
-      @student = User.find_by(reg_no: params[:search].upcase!)
+      @student = User.find_by(reg_no: params[:search].upcase)
       if !@student.nil?
-        @semester_wise_results = Result.where('user_id = ?', @student.id).group_by(&:semester_id).to_h
+        @semester_wise_results = @student.results.group_by(&:semester_id).to_h
         if @semester_wise_results.empty?
           redirect_to results_path, notice: "Roll number doesn't have any resutls yet"
         end
-        @total_credits = @semester_wise_results.values.flatten.sum(&:credits)
+        @total_credits = get_total_credits(@semester_wise_results)
       else
         redirect_to results_path, notice: "Roll number doesn't exist"
       end
@@ -99,8 +100,8 @@ class ResultsController < ApplicationController
       records = CSV.parse(File.read(params[:file].path), headers: true)
       records.each do |student_record|
 
-        @student = User.find_by(reg_no: student_record[0].upcase!)
-        
+        @student = User.find_by(reg_no: student_record[0].upcase)
+
         if @student.nil?
           text_to_display += "Student with roll number #{student_record[0]} doesn't exist \n"
           Rails.logger.info "Student with roll number #{student_record[0]} doesn't exist"
@@ -118,7 +119,7 @@ class ResultsController < ApplicationController
             next
           end
 
-          @subject = Subject.find_by(college_id: @student.college.id, code: arr_of_stu_record[index][0])
+          @subject = Subject.find_by(college_id: @student.college.id, code: arr_of_stu_record[index][0].upcase)
 
           if @subject.nil?
             text_to_display += "#{arr_of_stu_record[index][0]} subject doesn't exist \n"
@@ -152,6 +153,11 @@ class ResultsController < ApplicationController
             text_to_display += "#{@subject.name} subject result Uploaded. \n"
             Rails.logger.info "#{arr_of_stu_record[index][0]} subject result Uploaded successfully."
           else
+            if @result.errors.any?
+              @result.errors.full_messages.each do |msg|
+                Rails.logger.error "\n\n #{msg} \n\n"
+              end
+            end
             text_to_display += "#{@subject.name} subject result Upload failed. \n"
             Rails.logger.info "#{arr_of_stu_record[index][0]} subject result Upload failed."
           end
@@ -167,7 +173,17 @@ class ResultsController < ApplicationController
   end
   
   def analysis
-    @subject_wise_analysis = Result.where('college_id = ? and batch_id = ? and semester_id = ? and department_id = ?',current_user.college_id, params[:batch_id], params[:semester_id], params[:department_id]).group_by(&:subject_id).to_h
+    if params[:semester_id].present? and params[:batch_id].present? and params[:department_id].present?
+      @subject_wise_analysis = Result.where('college_id = ? and batch_id = ? and semester_id = ? and department_id = ?',current_user.college_id, params[:batch_id], params[:semester_id], params[:department_id]).group_by(&:subject_id).to_h
+      if @subject_wise_analysis.empty?
+        @message = "No result found for selected semester, batch and department"
+      else
+        @message = "Subject wise analysis for selected semester, batch and department"
+      end
+    else
+      @subject_wise_analysis = []
+      @message = "Please select semester, batch and department"
+    end
   end
 
   private
