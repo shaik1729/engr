@@ -19,6 +19,7 @@ class User < ApplicationRecord
   validates :role_id, presence: true
   validates :college_id, presence: true
   validates :mobile_number, presence: true, length: { is: 10 }, numericality: { only_integer: true }
+  validates :reg_no, uniqueness: { case_sensitive: false }, presence: true, if: :is_student?
   
   def is_admin?
     self.role.code == "ADMIN"
