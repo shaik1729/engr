@@ -23,3 +23,5 @@ test:
 production:
   <<: *default
   database: apna_college_production
+  username: postgres
+  password: postgres

@@ -118,15 +118,15 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
   config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { host: Rails.application.credentials[:HOST], protocol: 'https' }
+  config.action_mailer.default_url_options = { host: '192.168.155.1', protocol: 'http' }
   config.action_mailer.perform_deliveries = true
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
   address: "smtp.gmail.com",
   port: 587,
-  user_name: Rails.application.credentials.smtp[:EMAIL],
-  password: Rails.application.credentials.smtp[:PASSWORD],
+  user_name: 'apnacollege.co.in@gmail.com',
+  password: 'ffsrgowsbzoagjmp',
   authentication: :plain,
   enable_starttls_auto: true
   }

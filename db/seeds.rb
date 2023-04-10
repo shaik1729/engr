@@ -21,4 +21,4 @@ Semester.create!(sem: 'SEMESTER 6')
 Semester.create!(sem: 'SEMESTER 7')
 Semester.create!(sem: 'SEMESTER 8')
 
-AdminUser.create!(email: Rails.application.credentials.admin[:EMAIL], password: Rails.application.credentials.admin[:PASSWORD], password_confirmation: Rails.application.credentials.admin[:PASSWORD])
+AdminUser.create!(email: 'admin@apnacollege.co.in', password: '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', password_confirmation: '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')
